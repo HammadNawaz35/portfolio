@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css">
+
+  <!-- Venobox CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.3/venobox.min.css">
+
+  <link rel="stylesheet" href="css/form.css" />
+  <link rel="stylesheet" href="css/style.css" />
+
+
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+
+
+
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+</head>
+
+<body>
+  <nav class="navbar  navbar-expand-lg navbar-light fixed-top " id="navbar" data-aos="zoom-in">
+    <div class="container" data-aos="fade-up">
+      <!-- Logo -->
+      <a class="navbar-brand" href="index.html">
+        <img src="img/logo.png" alt="Logo" style="width: 40px; height: 40px; margin-left: 20px;">
+      </a>
+      <!-- Navbar Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Navbar Links -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item active "><a class="nav-link" aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="index.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+  <!-- form -->
+  <div class="section-title" data-aos="fade-up" data-aos-duration="1500">
+    <h2 class="sec-title fw-bold mt-5">Contact Me</h2>
+    <p>Please Fill the form to reach out me</p>
+  </div>
+
+  <div class="row justify-content-center m-5">
+    <div class="col-md-12">
+      <div class="wrapper">
+        <div class="row no-gutters">
+          <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+            <div class="contact-wrap w-100 p-md-5 p-4">
+              <h3 class="mb-4">Get in touch</h3>
+              <div id="form-message-warning" class="mb-4"></div>
+              <div id="form-message-success" class="mb-4">
+              </div>
+              <form id="contactForm" name="contactForm" class="contactForm">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="label" for="name">Full Name</label>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="Name"
+                        oninput="validateName()">
+                      <span id="name-error" class="error-message"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="label" for="email">Email Address</label>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="Email"
+                        oninput="validateEmail()">
+                      <span id="email-error" class="error-message"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="label" for="subject">Subject</label>
+                      <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
+                        oninput="validateSubject()">
+                      <span id="subject-error" class="error-message"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="label" for="#">Message</label>
+                      <textarea name="message" class="form-control" id="message" cols="30" rows="4"
+                        placeholder="Message" oninput="validateMessage()"></textarea>
+                      <span id="bg-danger" class="error-message"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="submit" value="Send Message" class="btn btn-primary" onclick="return validateForm()">
+                      <div class="submitting"></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+            <div class="info-wrap bg-primary w-100 p-md-5 p-4">
+              <h3>Let's get in touch</h3>
+
+              <div class="dbox w-100 d-flex align-items-start">
+                <div class="icon d-flex align-items-center justify-content-center">
+                  <span class="fa fa-map-marker"></span>
+                </div>
+                <div class="text pl-3">
+                  <p><span>Address:</span> P.O Hanesar,47340,Tehsil Kahuta District Rawalpindi</p>
+                </div>
+              </div>
+              <div class="dbox w-100 d-flex align-items-center">
+                <div class="icon d-flex align-items-center justify-content-center">
+                  <span class="fa fa-phone"></span>
+                </div>
+                <div class="text pl-3">
+                  <p><span>Phone:</span> <a href="https://wa.me/923041565309">+ 92 304 1565309</a></p>
+                </div>
+              </div>
+              <div class="dbox w-100 d-flex align-items-center">
+                <div class="icon d-flex align-items-center justify-content-center">
+                  <span class="fa fa-paper-plane"></span>
+                </div>
+                <div class="text pl-3">
+                  <p><span>Email:</span> <a href="#">Hammadnawaz35@gmail.com</a></p>
+                </div>
+              </div>
+              <div class="dbox w-100 d-flex align-items-center">
+                <div class="icon d-flex align-items-center justify-content-center">
+                  <span class="fa fa-globe"></span>
+                </div>
+                <div class="text pl-3">
+                  <p><span>Website</span> <a href="#">hammadnawaz35.github.io/portfolio/</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner">
+    <div class="spinner-border text-primary color-changing" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="thankYouModal" tabindex="-1" role="dialog" aria-labelledby="thankYouModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content text-center p-4" style="border-radius: 15px;">
+        <!-- Icon Box -->
+        <div class="d-flex justify-content-center align-items-center mb-3"
+          style="width: 50px; height: 50px; background-color: #27ae60; border-radius: 50%; margin: 0 auto;">
+          <span class="text-white">&#10004;</span>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <p class="text-center text-danger fw-bold">Thank You</p>
+          <h6 class="modal-title">Your message was successfully sent.</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!----------------footer section starts here---------------------->
+  <section id="contact">
+    <div style="background-image: url('img/img.jpg'); background-position: center;">
+      <div class="container d-flex flex-wrap justify-content-between align-items-center py-3">
+        <!-- Social Icons -->
+        <div class="social-icons d-flex flex-wrap justify-content-center mb-3 mb-lg-0">
+          <div class="social-item">
+            <a href="https://m.facebook.com/hammad.nawaz.5243" target="_blank" class="circle-icon facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <p>Facebook</p>
+          </div>
+          <div class="social-item">
+            <a href="https://wa.me/923041565309" target="_blank" class="circle-icon whatsapp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+            <p>WhatsApp</p>
+          </div>
+          <div class="social-item">
+            <a href="https://x.com/Hammad10582105" target="_blank" class="circle-icon twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <p>Twitter</p>
+          </div>
+          <div class="social-item">
+            <a href="https://join.skype.com/invite/EF8EAm9XjB2z" target="_blank" class="circle-icon skype">
+              <i class="fab fa-skype"></i>
+            </a>
+            <p>Skype</p>
+          </div>
+          <div class="social-item">
+            <a href="https://linkedin.com/in/hammad-nawaz-897a44325/" target="_blank" class="circle-icon linkedin">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <p>LinkedIn</p>
+          </div>
+          <div class="social-item">
+            <a href="https://github.com/ali12508?tab=repositories" target="_blank" class="circle-icon github">
+              <i class="fab fa-github"></i>
+            </a>
+            <p>GitHub</p>
+          </div>
+          <div class="social-item">
+            <a href="https://www.behance.net/hammadnawaz2" target="_blank" class="circle-icon behance">
+              <i class="fab fa-behance"></i>
+            </a>
+            <p>Behance</p>
+          </div>
+        </div>
+
+        <!-- Footer Text -->
+        <div class="text-center text-lg-left">
+          <p class="text-light mt-1">Developed by <b class="text-info">Hammad Nawaz</b> © 2024</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!----------------footer section ends here---------------------->
+
+
+  <!-- Go to Top Button -->
+  <button id="goTopBtn" class="go-top-btn" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i> <!-- Font Awesome Up Arrow Icon -->
+  </button>
+
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.bundle.js"></script>
+  <script src="http://rexbd.net/html/multicast/demo/assets/js/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Isotope JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+  <!-- Venobox JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.3/venobox.min.js"></script>
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+
+  <!-- AOS JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+
+
+  <!-- Initialize AOS animation -->
+  <script>
+
+    AOS.init();
+
+
+  </script>
+
+
+
+  <script>
+    // Show button when scrolled down 100px from the top
+    window.onscroll = function () {
+      const goTopBtn = document.getElementById('goTopBtn');
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        goTopBtn.style.display = "flex";
+      } else {
+        goTopBtn.style.display = "none";
+      }
+    };
+
+    // Smooth scroll to top
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+
+  <!-- Initialize Isotope and Venobox -->
+  <script>
+    $(document).ready(function () {
+      // Initialize Isotope
+      var portfolioIsotope = $('.portfolio-container').isotope({
+        itemSelector: '.portfolio-item',
+        layoutMode: 'fitRows'
+      });
+
+      $('#portfolio-flters li').on('click', function () {
+        $('#portfolio-flters li').removeClass('filter-active');
+        $(this).addClass('filter-active');
+
+        portfolioIsotope.isotope({ filter: $(this).attr('data-filter') });
+      });
+
+      // Initialize Venobox
+      $('.venobox').venobox();
+    });
+  </script>
+
+
+
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      // Replace with the path to your CV file
+      const fileUrl = 'cv.pdf';
+      const a = document.createElement('a');
+      a.href = fileUrl;
+      a.download = 'Hammad Nawaz_CV.pdf'; // Default file name for the download
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  </script>
+
+
+  <script>
+    const texts = [
+      { text: "UI/UX Designer", color: "green" },
+      { text: "Web Developer", color: "yellow" },
+      { text: "App developer", color: "Orange" },
+      { text: "Freelancer", color: "White" }
+    ];
+    const textElement = document.getElementById('text');
+    const cursorElement = document.getElementById('cursor');
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 150;  // Speed of typing characters in milliseconds
+    const deletingSpeed = 100; // Speed of deleting characters in milliseconds
+    const pauseBeforeNext = 1000; // Pause before typing the next text
+
+    function typeEffect() {
+      const current = texts[textIndex];
+      if (isDeleting) {
+        textElement.textContent = current.text.substring(0, charIndex--);
+        if (charIndex < 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          textElement.style.color = texts[textIndex].color; // Update color for new text
+          setTimeout(typeEffect, pauseBeforeNext); // Pause before typing new text
+        } else {
+          setTimeout(typeEffect, deletingSpeed); // Speed of deleting
+        }
+      } else {
+        textElement.textContent = current.text.substring(0, charIndex++);
+        if (charIndex > current.text.length) {
+          isDeleting = true;
+          setTimeout(typeEffect, pauseBeforeNext); // Pause after text is fully written
+        } else {
+          setTimeout(typeEffect, typingSpeed); // Speed of typing
+        }
+      }
+    }
+
+    // Initialize the type effect and set initial color
+    textElement.style.color = texts[textIndex].color;
+    cursorElement.style.color = texts[textIndex].color; // Initial cursor color
+    typeEffect();
+
+
+  </script>
+
+
+
+
+
+  <!-- form validation -->
+
+  <script>
+    function validateName() {
+      var name = document.getElementById("name").value;
+      if (name === "") {
+        document.getElementById("name-error").innerHTML = "Please enter your name";
+      } else {
+        document.getElementById("name-error").innerHTML = "";
+      }
+    }
+
+    function validateEmail() {
+      var email = document.getElementById("email").value;
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (email === "") {
+        document.getElementById("email-error").innerHTML = "Please enter your email";
+      } else if (!emailRegex.test(email)) {
+        document.getElementById("email-error").innerHTML = "Invalid email format";
+      } else {
+        document.getElementById("email-error").innerHTML = "";
+      }
+    }
+
+    function validateSubject() {
+      var subject = document.getElementById("subject").value;
+      if (subject === "") {
+        document.getElementById("subject-error").innerHTML = "Please enter a subject";
+      } else {
+        document.getElementById("subject-error").innerHTML = "";
+      }
+    }
+
+    function validateMessage() {
+      var message = document.getElementById("message").value;
+      if (message === "") {
+        document.getElementById("message-error").innerHTML = "Please enter a message";
+      } else {
+        document.getElementById("message-error").innerHTML = "";
+      }
+    }
+
+    function validateForm() {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var subject = document.getElementById("subject").value;
+      var message = document.getElementById("message").value;
+
+      if (name === "" || email === "" || subject === "" || message === "") {
+        alert("Please fill out all fields");
+        return false;
+      }
+
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(email)) {
+        alert("Invalid email format");
+        return false;
+      }
+      // Show the loading spinner
+      document.querySelector('.loading-spinner').style.display = 'block';
+
+      // Simulate form submission delay
+      setTimeout(function () {
+        // Hide the loading spinner
+        document.querySelector('.loading-spinner').style.display = 'none';
+
+        // Show the success modal
+        $('#thankYouModal').modal('show');
+
+        // Auto-close modal after 3 seconds
+        setTimeout(function () {
+          $('#thankYouModal').modal('hide');
+        }, 3000); // 3000 milliseconds = 3 seconds
+
+      }, 2000); // Simulated delay of 2 seconds
+
+      return false; // Prevent actual form submission
+    }
+  </script>
+
+</body>
+
+</html>
