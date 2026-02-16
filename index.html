@@ -323,10 +323,15 @@
         /* CV Download Button with Diagonal Light Sweep */
         .btn-cv-download {
             position: relative;
-            background: #0badd66f;
-            /* Solid white background */
-            color: #1F2937;
-            padding: 12px 28px;
+
+
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+
+
+            /* solid background behind the text */
+            background-color: #6b21a8 !important;
+
+            padding: 12px 20px;
             font-weight: 600;
             font-size: 14px;
             display: inline-flex;
@@ -334,7 +339,7 @@
             gap: 8px;
             border-radius: 8px;
             /* Sharp modern corners */
-            border: 1px solid #3669cd;
+            border: 1px solid #f01010;
             /* Subtle static border */
             overflow: hidden;
             /* Important: keeps the light inside the button */
@@ -716,12 +721,16 @@
             return { theme, palette, setPalette, toggleTheme };
         };
 
-        // Navigation Component
-        const Navigation = ({ theme, toggleTheme }) => {
-            const [isScrolled, setIsScrolled] = useState(false);
-            const [activeSection, setActiveSection] = useState('home');
 
-            useEffect(() => {
+
+        // navigation component
+
+        const Navigation = ({ theme, toggleTheme }) => {
+            const [isScrolled, setIsScrolled] = React.useState(false);
+            const [activeSection, setActiveSection] = React.useState('home');
+            const [isOpen, setIsOpen] = React.useState(false);
+
+            React.useEffect(() => {
                 const handleScroll = () => {
                     setIsScrolled(window.scrollY > 50);
 
@@ -754,53 +763,141 @@
                 <motion.nav
                     initial={{ y: -100 }}
                     animate={{ y: 0 }}
-                    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'nav-scrolled py-3' : 'py-4 bg-white/95 dark:bg-transparent'
+                    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                        // Desktop: transparent when scrolled, solid if at top
+                        isScrolled
+                            ? 'bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm py-2'
+                            : 'bg-white/80 dark:bg-gray-900/80 py-4'
                         }`}
                 >
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-center justify-between">
-                            <motion.div
-                                className="text-xl font-display font-bold gradient-text"
-                                whileHover={{ scale: 1.05 }}
-                            >
-                                Hammad Nawaz
-                            </motion.div>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                        {/* Logo */}
+                        <motion.div className="text-xl font-display font-bold gradient-text" whileHover={{ scale: 1.05 }}>
+                            Hammad Nawaz
+                        </motion.div>
 
-                            <div className="hidden md:flex items-center space-x-6">
-                                {navItems.map((item) => (
-                                    <a
-                                        key={item.id}
-                                        href={`#${item.id}`}
-                                        className={`font-body font-medium text-sm transition-all duration-300 relative ${activeSection === item.id
-                                            ? 'text-primary'
-                                            : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                                            }`}
-                                    >
-                                        {item.name}
-                                        {activeSection === item.id && (
-                                            <motion.div
-                                                layoutId="activeNav"
-                                                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                                            />
-                                        )}
-                                    </a>
-                                ))}
+                        {/* Desktop Menu */}
+                        <div className="hidden md:flex items-center space-x-6">
+                            {navItems.map(item => (
+                                <a
+                                    key={item.id}
+                                    href={`#${item.id}`}
+                                    className={`font-body font-medium text-sm transition-all duration-300 relative ${activeSection === item.id
+                                        ? 'text-primary'
+                                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                                        }`}
+                                >
+                                    {item.name}
+                                    {activeSection === item.id && (
+                                        <motion.div layoutId="activeNav" className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary" />
+                                    )}
+                                </a>
+                            ))}
 
-                                {/* Theme Toggle - Enhanced */}
+                            {/* Animated Theme Toggle */}
+                            <div className="ml-4">
                                 <div
                                     onClick={toggleTheme}
-                                    className={`theme-toggle ${theme === 'dark' ? 'active' : ''}`}
+                                    className="relative w-14 h-7 bg-gray-300 dark:bg-gray-700 rounded-full cursor-pointer flex items-center p-1 transition-colors duration-300"
                                 >
-                                    <div className="theme-toggle-slider">
+                                    <motion.div
+                                        layout
+                                        transition={{ type: 'spring', stiffness: 700, damping: 30 }}
+                                        className="w-5 h-5 bg-white rounded-full shadow-md flex items-center justify-center text-sm"
+                                        style={{ translateX: theme === 'dark' ? '28px' : '0px' }}
+                                    >
                                         {theme === 'dark' ? '🌙' : '☀️'}
-                                    </div>
+                                    </motion.div>
                                 </div>
                             </div>
                         </div>
+
+                        {/* Hamburger Button */}
+                        <div className="md:hidden relative z-50">
+                            <button
+                                onClick={() => setIsOpen(!isOpen)}
+                                className="flex flex-col justify-center items-center w-10 h-10 space-y-1"
+                            >
+                                <motion.span
+                                    animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                                    className="block w-8 h-0.5 bg-gray-800 dark:bg-white rounded"
+                                />
+                                <motion.span
+                                    animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                                    className="block w-8 h-0.5 bg-gray-800 dark:bg-white rounded"
+                                />
+                                <motion.span
+                                    animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                                    className="block w-8 h-0.5 bg-gray-800 dark:bg-white rounded"
+                                />
+                            </button>
+                        </div>
                     </div>
+
+                    {/* Mobile Sidebar */}
+                    <AnimatePresence>
+                        {isOpen && (
+                            <>
+                                {/* Backdrop Blur Overlay */}
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+                                />
+
+                                {/* Slide-in Sidebar */}
+                                <motion.div
+                                    initial={{ x: '100%' }}
+                                    animate={{ x: 0 }}
+                                    exit={{ x: '100%' }}
+                                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                    className="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white dark:bg-gray-900 z-50 p-8 flex flex-col space-y-6 "
+                                >
+                                    {/* Close Button */}
+                                    <div className="flex justify-end mb-4">
+                                        <button onClick={() => setIsOpen(false)} className="text-2xl font-bold text-black dark:text-white">
+                                            ✕
+                                        </button>
+                                    </div>
+
+                                    {navItems.map(item => (
+                                        <a
+                                            key={item.id}
+                                            href={`#${item.id}`}
+                                            onClick={() => setIsOpen(false)}
+                                            className={`text-lg font-semibold cursor-pointer transition-colors ${activeSection === item.id ? 'text-primary' : 'text-gray-800 dark:text-gray-200 hover:text-primary'
+                                                }`}
+                                        >
+                                            {item.name}
+                                        </a>
+                                    ))}
+
+                                    {/* Animated Theme Toggle in Mobile */}
+                                    <div className="mt-4">
+                                        <div
+                                            onClick={toggleTheme}
+                                            className="relative w-14 h-7 bg-gray-300 dark:bg-gray-700 rounded-full cursor-pointer flex items-center p-1 transition-colors duration-300"
+                                        >
+                                            <motion.div
+                                                layout
+                                                transition={{ type: 'spring', stiffness: 700, damping: 30 }}
+                                                className="w-5 h-5 bg-white rounded-full shadow-md flex items-center justify-center text-sm"
+                                                style={{ translateX: theme === 'dark' ? '28px' : '0px' }}
+                                            >
+                                                {theme === 'dark' ? '🌙' : '☀️'}
+                                            </motion.div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </>
+                        )}
+                    </AnimatePresence>
                 </motion.nav>
             );
         };
+
+
 
         // Palette Picker Component
         const PalettePicker = ({ palette, setPalette }) => {
@@ -958,11 +1055,15 @@
             );
         };
 
+        // hero section
+
+
+
         const Hero = () => {
             const photoUrl = "https://hammadnawaz35.github.io/portfolio/img/imag.png";
 
             return (
-                <section id="home" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+                <section id="home" className="relative min-h-screen flex items-center  overflow-hidden pt-28 md:pt-16">
                     {/* Cool Aesthetic Background from Online */}
                     <div className="absolute inset-0 -z-10">
                         {/* Background Image - Modern Abstract */}
@@ -1041,12 +1142,12 @@
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.6 }}
                                 >
-                                      <a
+                                    <a
                                         href="https://HammadNawaz35.github.io/portfolio/HammadNawaz-Cv.pdf"
                                         download
-                                        className="btn-cv-download"
+                                        className="btn-cv-download text-white flex items-center gap-2"
                                     >
-                                        <i className="fas fa-download mr-2"></i>
+                                        <i className="fas fa-download text-white"></i>
                                         Download CV
                                     </a>
 
@@ -1060,7 +1161,7 @@
                                 </motion.div>
                             </motion.div>
 
-                            {/* Right Side - JUST IMAGE (NO CONTAINER) */}
+                            {/* Right Side  image hero section */}
                             <motion.img
                                 src={photoUrl}
                                 alt="Muhammad Hammad Nawaz"
@@ -1068,7 +1169,8 @@
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.3 }}
                                 whileHover={{ scale: 1.02 }}
-                                className="w-full max-w-md mx-auto h-auto object-contain"
+                                className="w-full max-w-md mx-auto h-auto object-contain -mt-8 md:mt-0"
+
                             />
                         </div>
                     </div>
