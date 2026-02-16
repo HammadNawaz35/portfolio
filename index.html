@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Hammad Nawaz - Android Developer & IT Manager</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Muhammad Hammad Nawaz - Android Developer, IT Manager, and Computer Science Graduate specializing in mobile app development, MVVM architecture, and modern tech solutions.">
+    <meta name="keywords"
+        content="Android Developer, Mobile App Development, Kotlin, Java, IT Manager, Computer Science, Pakistan">
+    <meta name="author" content="Muhammad Hammad Nawaz">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Muhammad Hammad Nawaz - Android Developer Portfolio">
+    <meta property="og:description"
+        content="Professional Android Developer and IT Manager with expertise in mobile application development and system management.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+
+    <!-- Google Fonts - Syne (display) + Work Sans (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- React, ReactDOM, and Framer Motion from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.js"></script>
+
+    <!-- Babel Standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        body: ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: 'var(--color-primary)',
+                        secondary: 'var(--color-secondary)',
+                        accent: 'var(--color-accent)',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* CSS Variables for Theme System */
+        :root {
+            --color-primary: #00D9FF;
+            --color-secondary: #6366F1;
+            --color-accent: #F59E0B;
+            --bg-light: #FFFFFF;
+            --bg-light-secondary: #F9FAFB;
+            --text-light: #1F2937;
+            --text-light-secondary: #6B7280;
+            --bg-dark: #0A0E1A;
+            --bg-dark-secondary: #050812;
+            --text-dark: #E5E7EB;
+            --text-dark-secondary: #9CA3AF;
+        }
+
+        /* Theme Palettes */
+        [data-palette="cyan"] {
+            --color-primary: #00D9FF;
+            --color-secondary: #6366F1;
+            --color-accent: #F59E0B;
+        }
+
+        [data-palette="purple"] {
+            --color-primary: #A855F7;
+            --color-secondary: #EC4899;
+            --color-accent: #F59E0B;
+        }
+
+        [data-palette="green"] {
+            --color-primary: #10B981;
+            --color-secondary: #3B82F6;
+            --color-accent: #F59E0B;
+        }
+
+        [data-palette="red"] {
+            --color-primary: #EF4444;
+            --color-secondary: #F97316;
+            --color-accent: #FBBF24;
+        }
+
+        [data-palette="teal"] {
+            --color-primary: #14B8A6;
+            --color-secondary: #0EA5E9;
+            --color-accent: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            font-family: 'Work Sans', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark theme styles */
+        body.dark {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-secondary) 100%);
+            color: var(--text-dark);
+        }
+
+        /* Light theme styles */
+        body.light {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%);
+            color: var(--text-light);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--color-secondary), var(--color-primary));
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.2;
+        }
+
+        .animated-bg::after {
+            content: '';
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--color-secondary) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation: float 10s ease-in-out infinite reverse;
+            opacity: 0.2;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) translateX(0px);
+            }
+
+            50% {
+                transform: translateY(-20px) translateX(20px);
+            }
+        }
+
+        /* Glass Effect - Lighter and more subtle */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .light .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* "Milk Glass" White Effect */
+        .glass1 {
+            background: rgba(255, 255, 255, 0.3);
+            /* Transparent white */
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* Brighter border for the edge */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        /* In Dark Mode, we keep it white-transparent but lower the opacity */
+        .dark .glass1 {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+        }
+
+        /* Navbar glass effect - Enhanced with scroll */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .dark .nav-glass {
+            background: rgba(10, 14, 26, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* NEW: Navbar scrolled state - glassmorphism */
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.277) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .nav-scrolled {
+            background: rgba(10, 14, 26, 0.319) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Typing Animation */
+        .typing-text {
+            border-right: 2px solid var(--color-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink 0.7s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Button Hover Effects */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+
+        @keyframes white-border-glow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* CV Download Button with Diagonal Light Sweep */
+        .btn-cv-download {
+            position: relative;
+            background: #0badd66f;
+            /* Solid white background */
+            color: #1F2937;
+            padding: 12px 28px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 8px;
+            /* Sharp modern corners */
+            border: 1px solid #3669cd;
+            /* Subtle static border */
+            overflow: hidden;
+            /* Important: keeps the light inside the button */
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        /* The "Passing Light" Element */
+        .btn-cv-download::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            /* Start far left */
+            width: 50%;
+            /* Width of the light beam */
+            height: 100%;
+
+            /* Diagonal Light Beam - adjust color here */
+            background: linear-gradient(to right,
+                    transparent,
+                    rgba(59, 130, 246, 0.2),
+                    /* One light color (Primary Blue) */
+                    transparent);
+
+            transform: skewX(-25deg);
+            /* Makes it diagonal */
+            transition: none;
+            animation: light-sweep 3s infinite;
+            /* Loops every 3 seconds */
+        }
+
+        @keyframes light-sweep {
+            0% {
+                left: -150%;
+            }
+
+            50% {
+                left: 150%;
+                /* Sweep to the right */
+            }
+
+            100% {
+                left: 150%;
+                /* Pause at the end before restarting */
+            }
+        }
+
+        .btn-cv-download:hover {
+            transform: translateY(-2px);
+            background: #fafafa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Dark Mode Support */
+        .dark .btn-cv-download {
+            background: #111827;
+            color: #ffffff;
+            border-color: #374151;
+        }
+
+        .dark .btn-cv-download::after {
+            /* Brighter light beam for dark mode */
+            background: linear-gradient(to right,
+                    transparent,
+                    rgba(255, 255, 255, 0.15),
+                    transparent);
+        }
+
+        /* NEW: Transparent Contact Button */
+        .btn-contact-transparent {
+            position: relative;
+            background: transparent;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            border-radius: 50px;
+            padding: 10px 26px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-contact-transparent:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 217, 255, 0.3);
+        }
+
+        /* NEW: Custom Section Divider */
+        .section-divider {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%);
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 8px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 10px;
+        }
+
+        /* Timeline Connector */
+        .timeline-line {
+            position: absolute;
+            left: 15px;
+            top: 32px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--color-primary), var(--color-secondary));
+        }
+
+        /* Project Card Hover Effect */
+        .project-card {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0.75rem;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Skill Badge */
+        .skill-badge {
+            transition: all 0.2s ease;
+        }
+
+        .skill-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .theme-toggle.active {
+            background: var(--color-primary);
+        }
+
+        .theme-toggle-slider {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .theme-toggle.active .theme-toggle-slider {
+            transform: translateX(24px);
+        }
+
+        /* Palette Picker Styles */
+        .palette-picker {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .palette-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .palette-button:hover {
+            transform: scale(1.1);
+        }
+
+        .palette-panel {
+            position: absolute;
+            left: 70px;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .dark .palette-panel {
+            background: rgba(10, 14, 26, 0.95);
+        }
+
+        .palette-panel.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .palette-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .palette-option:hover {
+            transform: scale(1.1);
+        }
+
+        .palette-option.active {
+            border-color: white;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Scroll Button Styles */
+        .scroll-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-button.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Light theme text colors */
+        .light .text-light-primary {
+            color: var(--text-light);
+        }
+
+        .light .text-light-secondary {
+            color: var(--text-light-secondary);
+        }
+
+        /* NEW: Social Icon Circles */
+        .social-icon-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 18px;
+        }
+
+        .social-icon-circle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-facebook {
+            background: #1877F2;
+        }
+
+        .social-github {
+            background: #333333;
+        }
+
+        .social-behance {
+            background: #1769FF;
+        }
+
+        .social-linkedin {
+            background: #0A66C2;
+        }
+
+        .social-whatsapp {
+            background: #25D366;
+        }
+    </style>
+</head>
+
+<body class="dark">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { motion, useScroll, useTransform, AnimatePresence } = Motion;
+
+        // Theme Hook
+        const useTheme = () => {
+            const [theme, setTheme] = useState(() => {
+                return localStorage.getItem('theme') || 'dark';
+            });
+
+            const [palette, setPalette] = useState(() => {
+                return localStorage.getItem('palette') || 'cyan';
+            });
+
+            useEffect(() => {
+                document.body.className = theme;
+                localStorage.setItem('theme', theme);
+            }, [theme]);
+
+            useEffect(() => {
+                document.documentElement.setAttribute('data-palette', palette);
+                localStorage.setItem('palette', palette);
+            }, [palette]);
+
+            const toggleTheme = () => {
+                setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+            };
+
+            return { theme, palette, setPalette, toggleTheme };
+        };
+
+        // Navigation Component
+        const Navigation = ({ theme, toggleTheme }) => {
+            const [isScrolled, setIsScrolled] = useState(false);
+            const [activeSection, setActiveSection] = useState('home');
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    setIsScrolled(window.scrollY > 50);
+
+                    const sections = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
+                    const current = sections.find(section => {
+                        const element = document.getElementById(section);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            return rect.top <= 100 && rect.bottom >= 100;
+                        }
+                        return false;
+                    });
+                    if (current) setActiveSection(current);
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const navItems = [
+                { name: 'Home', id: 'home' },
+                { name: 'About', id: 'about' },
+                { name: 'Skills', id: 'skills' },
+                { name: 'Experience', id: 'experience' },
+                { name: 'Projects', id: 'projects' },
+                { name: 'Contact', id: 'contact' },
+            ];
+
+            return (
+                <motion.nav
+                    initial={{ y: -100 }}
+                    animate={{ y: 0 }}
+                    className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'nav-scrolled py-3' : 'py-4 bg-white/95 dark:bg-transparent'
+                        }`}
+                >
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center justify-between">
+                            <motion.div
+                                className="text-xl font-display font-bold gradient-text"
+                                whileHover={{ scale: 1.05 }}
+                            >
+                                Hammad Nawaz
+                            </motion.div>
+
+                            <div className="hidden md:flex items-center space-x-6">
+                                {navItems.map((item) => (
+                                    <a
+                                        key={item.id}
+                                        href={`#${item.id}`}
+                                        className={`font-body font-medium text-sm transition-all duration-300 relative ${activeSection === item.id
+                                            ? 'text-primary'
+                                            : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                                            }`}
+                                    >
+                                        {item.name}
+                                        {activeSection === item.id && (
+                                            <motion.div
+                                                layoutId="activeNav"
+                                                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                                            />
+                                        )}
+                                    </a>
+                                ))}
+
+                                {/* Theme Toggle - Enhanced */}
+                                <div
+                                    onClick={toggleTheme}
+                                    className={`theme-toggle ${theme === 'dark' ? 'active' : ''}`}
+                                >
+                                    <div className="theme-toggle-slider">
+                                        {theme === 'dark' ? '🌙' : '☀️'}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motion.nav>
+            );
+        };
+
+        // Palette Picker Component
+        const PalettePicker = ({ palette, setPalette }) => {
+            const [isOpen, setIsOpen] = useState(false);
+
+            const palettes = [
+                { name: 'cyan', colors: ['#00D9FF', '#6366F1'], icon: 'Cyan' },
+                { name: 'purple', colors: ['#A855F7', '#EC4899'], icon: 'Purple' },
+                { name: 'green', colors: ['#10B981', '#3B82F6'], icon: 'Green' },
+                { name: 'red', colors: ['#EF4444', '#F97316'], icon: 'Red' },
+                { name: 'teal', colors: ['#14B8A6', '#0EA5E9'], icon: 'Teal' }
+            ];
+
+            return (
+                <div className="fixed right-4 top-24 z-40">
+                    <motion.button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="w-12 h-12 rounded-full glass flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        🎨
+                    </motion.button>
+
+                    <AnimatePresence>
+                        {isOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 20 }}
+                                className="absolute right-0 mt-2 p-3 rounded-xl glass shadow-xl space-y-2"
+                            >
+                                {palettes.map((p) => (
+                                    <motion.button
+                                        key={p.name}
+                                        onClick={() => {
+                                            setPalette(p.name);
+                                            setIsOpen(false);
+                                        }}
+                                        className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all w-full ${palette === p.name ? 'bg-white/20' : 'hover:bg-white/10'
+                                            }`}
+                                        whileHover={{ x: -5 }}
+                                    >
+                                        <span className="text-xl">{p.icon}</span>
+                                        <div className="flex space-x-1">
+                                            {p.colors.map((color, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="w-6 h-6 rounded-full"
+                                                    style={{ background: color }}
+                                                />
+                                            ))}
+                                        </div>
+                                    </motion.button>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+            );
+        };
+
+        // Scroll Button Component
+        const ScrollButton = () => {
+            const [visible, setVisible] = useState(false);
+            const [direction, setDirection] = useState('down');
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    const scrolled = window.scrollY;
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+
+                    setVisible(scrolled > 300);
+
+                    if (scrolled + windowHeight >= documentHeight - 100) {
+                        setDirection('up');
+                    } else {
+                        setDirection('down');
+                    }
+                };
+
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const handleClick = () => {
+                if (direction === 'down') {
+                    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            };
+
+            return (
+                <div
+                    className={`scroll-button ${visible ? 'visible' : ''}`}
+                    onClick={handleClick}
+                >
+                    <svg
+                        className="w-6 h-6 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        style={{ transform: direction === 'up' ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }}
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </div>
+            );
+        };
+
+        // Typing Animation Component
+        const TypingAnimation = () => {
+            const [text, setText] = useState('');
+            const [isDeleting, setIsDeleting] = useState(false);
+            const [loopNum, setLoopNum] = useState(0);
+            const [typingSpeed, setTypingSpeed] = useState(150);
+
+            const roles = [
+                'Android Developer',
+                'Frontend Developer',
+                'IT Manager',
+                'Computer Science Graduate'
+            ];
+
+            useEffect(() => {
+                const handleTyping = () => {
+                    const currentRole = roles[loopNum % roles.length];
+
+                    if (isDeleting) {
+                        setText(currentRole.substring(0, text.length - 1));
+                        setTypingSpeed(50);
+                    } else {
+                        setText(currentRole.substring(0, text.length + 1));
+                        setTypingSpeed(150);
+                    }
+
+                    if (!isDeleting && text === currentRole) {
+                        setTimeout(() => setIsDeleting(true), 2000);
+                    } else if (isDeleting && text === '') {
+                        setIsDeleting(false);
+                        setLoopNum(loopNum + 1);
+                    }
+                };
+
+                const timer = setTimeout(handleTyping, typingSpeed);
+                return () => clearTimeout(timer);
+            }, [text, isDeleting, loopNum, typingSpeed]);
+
+            return (
+                <span className="typing-text text-primary text-xl md:text-2xl font-display font-semibold">
+                    {text}
+                </span>
+            );
+        };
+
+        const Hero = () => {
+            const photoUrl = "https://hammadnawaz35.github.io/portfolio/img/imag.png";
+
+            return (
+                <section id="home" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+                    {/* Cool Aesthetic Background from Online */}
+                    <div className="absolute inset-0 -z-10">
+                        {/* Background Image - Modern Abstract */}
+                        <div
+                            className="absolute inset-0 opacity-40 dark:opacity-20"
+                            style={{
+                                backgroundImage: "url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=1920&q=80')",
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat"
+                            }}
+                        ></div>
+
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-blue-50/80 to-purple-50/80 dark:from-[#0a0a0a]/95 dark:via-blue-950/90 dark:to-purple-950/90"></div>
+
+                        {/* Animated Blobs */}
+                        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl animate-blob"></div>
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-secondary/20 to-transparent rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+                        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-t from-accent/15 to-transparent rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+                    </div>
+
+                    {/* Blob Animation Styles */}
+                    <style>{`
+                @keyframes blob {
+                    0%, 100% { transform: translate(0, 0) scale(1); }
+                    25% { transform: translate(20px, -50px) scale(1.1); }
+                    50% { transform: translate(-20px, 20px) scale(0.9); }
+                    75% { transform: translate(50px, 50px) scale(1.05); }
+                }
+                .animate-blob {
+                    animation: blob 20s infinite;
+                }
+                .animation-delay-2000 {
+                    animation-delay: 2s;
+                }
+                .animation-delay-4000 {
+                    animation-delay: 4s;
+                }
+            `}</style>
+
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+                        <div className="grid md:grid-cols-2 gap-10 items-center">
+                            {/* Left Side - Text Content */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8 }}
+                                className="space-y-4"
+                            >
+                                <motion.h1
+                                    className="text-xl md:text-2xl lg:text-3xl font-display font-bold leading-tight text-gray-900 dark:text-white"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                >
+                                    Hi, I'm <span className="gradient-text">Hammad Nawaz</span>
+                                </motion.h1>
+
+                                <div className="h-12 flex items-center">
+                                    <TypingAnimation />
+                                </div>
+
+                                <motion.p
+                                    className="text-base md:text-lg text-gray-600 dark:text-gray-300 font-body leading-relaxed max-w-xl"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.4 }}
+                                >
+                                    A tech-driven professional building modern Android applications and responsive web interfaces
+                                </motion.p>
+
+                                <motion.div
+                                    className="flex flex-wrap gap-3 pt-4"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.6 }}
+                                >
+                                    <a
+                                        href="#"
+                                        className="btn-cv-download"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open('/path-to-your-cv.pdf', '_blank');
+                                        }}
+                                    >
+                                        <i className="fas fa-download mr-2"></i>
+                                        Download CV
+                                    </a>
+
+                                    <a
+                                        href="#projects"
+                                        className="px-6 py-2.5 glass rounded-lg font-body font-medium text-gray-700 dark:text-white text-sm hover:bg-white/10 transition-all duration-300"
+                                    >
+                                        View Projects
+                                    </a>
+                                </motion.div>
+                            </motion.div>
+
+                            {/* Right Side - JUST IMAGE (NO CONTAINER) */}
+                            <motion.img
+                                src={photoUrl}
+                                alt="Muhammad Hammad Nawaz"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.3 }}
+                                whileHover={{ scale: 1.02 }}
+                                className="w-full max-w-md mx-auto h-auto object-contain"
+                            />
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+
+        // About Section - Added custom divider
+        const About = () => {
+            const photoUrl = "https://hammadnawaz35.github.io/portfolio/img/illus2.svg";
+
+            return (
+                <section id="about" className="py-16 relative">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white"
+                        >
+                            About <span className="gradient-text">Me</span>
+                        </motion.h2>
+
+                        {/* NEW: Custom Section Divider */}
+                        <div className="section-divider"></div>
+
+                        <div className="grid md:grid-cols-2 gap-10 items-center">
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="flex justify-center"
+                            >
+                                <div className="relative w-56 h-56 md:w-64 md:h-64">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl transform rotate-6"></div>
+                                    <div className="absolute inset-0 glass rounded-2xl overflow-hidden">
+                                        <img
+                                            src={photoUrl}
+                                            alt="Muhammad Hammad Nawaz"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                                className="space-y-4"
+                            >
+                                <p className="text-base text-gray-600 dark:text-gray-300 font-body leading-relaxed">
+                                    I am a highly motivated Computer Science graduate and technology enthusiast with a
+                                    strong foundation in Android development, software engineering principles, and IT
+                                    operations. I thrive in dynamic environments where problem-solving, innovation, and
+                                    continuous learning are essential.
+                                </p>
+                                <p className="text-base text-gray-600 dark:text-gray-300 font-body leading-relaxed">
+                                    With hands-on experience in mobile application development, system management, and
+                                    technical leadership, I am always ready to take on new challenges, adapt to evolving
+                                    technologies, and contribute to impactful, real-world solutions.
+                                </p>
+
+                                <div className="grid grid-cols-2 gap-3 pt-4">
+                                    <div className="glass rounded-lg p-3">
+                                        <div className="text-2xl font-display font-bold gradient-text">3+</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400 font-body">Years Experience</div>
+                                    </div>
+                                    <div className="glass rounded-lg p-3">
+                                        <div className="text-2xl font-display font-bold gradient-text">10+</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400 font-body">Projects</div>
+                                    </div>
+                                    <div className="glass rounded-lg p-3">
+                                        <div className="text-2xl font-display font-bold gradient-text">5+</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400 font-body">Certifications</div>
+                                    </div>
+                                    <div className="glass rounded-lg p-3">
+                                        <div className="text-2xl font-display font-bold gradient-text">2</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400 font-body">Awards</div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+
+        const Skills = () => {
+            const skillIcons = {
+                'Kotlin': 'https://www.vectorlogo.zone/logos/kotlinlang/kotlinlang-icon.svg',
+                'Java': 'https://www.vectorlogo.zone/logos/java/java-icon.svg',
+                'C++': 'https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.svg',
+                'JavaScript': 'https://www.vectorlogo.zone/logos/javascript/javascript-icon.svg',
+                'HTML': 'https://www.vectorlogo.zone/logos/w3_html5/w3_html5-icon.svg',
+                'CSS': 'https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg',
+                'Bootstrap': 'https://www.vectorlogo.zone/logos/getbootstrap/getbootstrap-icon.svg',
+                'Git & GitHub': 'https://www.vectorlogo.zone/logos/github/github-icon.svg',
+                'Postman': 'https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg',
+                'Appium': 'https://appium.io/docs/en/latest/assets/images/appium-logo-white.png',
+                'JIRA': 'https://www.vectorlogo.zone/logos/atlassian_jira/atlassian_jira-icon.svg',
+                'Figma': 'https://www.vectorlogo.zone/logos/figma/figma-icon.svg',
+                'Microsoft Office': 'https://www.vectorlogo.zone/logos/microsoft/microsoft-icon.svg'
+            };
+
+            const skillCategories = [
+                {
+                    title: 'Programming & Development',
+                    skills: ['Kotlin', 'Java', 'C++', 'JavaScript', 'HTML', 'CSS', 'Bootstrap'],
+                    displayType: 'icons'
+                },
+                {
+                    title: 'Android Development',
+                    skills: ['Android SDK', 'XML', 'MVVM Architecture', 'Firebase', 'REST APIs & JSON',
+                        'Kotlin Coroutines', 'Room Database', 'Camera API', 'Maps Integration',
+                        'Push Notifications', 'Payment Gateway', 'Ads Integration', 'Material Design'],
+                    displayType: 'badges'
+                },
+                {
+                    title: 'Tools & Platforms',
+                    skills: ['Git & GitHub', 'Postman', 'Appium', 'JIRA', 'Figma', 'Microsoft Office'],
+                    displayType: 'icons'
+                }
+            ];
+
+            return (
+                <section id="skills" className="py-16 relative">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white"
+                        >
+                            Technical <span className="gradient-text">Skills</span>
+                        </motion.h2>
+
+                        <div className="section-divider mb-12"></div>
+
+                        {/* --- SINGLE LARGE SEMI-TRANSPARENT CARD --- */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="relative overflow-hidden rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl bg-gradient-to-br from-white/40 to-white/5 dark:from-white/10 dark:to-transparent backdrop-blur-md"
+                        >
+                            <div className="space-y-12">
+                                {skillCategories.map((category) => (
+                                    <div key={category.title}>
+                                        <h3 className="text-lg font-display font-semibold text-blue-500 mb-6 flex items-center gap-2">
+                                            {category.title}
+                                        </h3>
+
+                                        <div className="flex flex-wrap gap-6">
+                                            {category.skills.map((skill) => (
+                                                <motion.div
+                                                    key={skill}
+                                                    whileHover={{ scale: 1.1, y: -2 }}
+                                                    className="relative"
+                                                >
+                                                    {category.displayType === 'icons' && skillIcons[skill] ? (
+                                                        <div className="flex flex-col items-center justify-center w-20">
+                                                            <img
+                                                                src={skillIcons[skill]}
+                                                                alt={skill}
+                                                                className="w-12 h-12 object-contain mb-2 drop-shadow-md"
+                                                            />
+                                                            <span className="text-[11px] font-medium text-gray-700 dark:text-gray-300 text-center leading-tight uppercase tracking-wide">
+                                                                {skill}
+                                                            </span>
+                                                        </div>
+                                                    ) : (
+                                                        <span className="px-4 py-2 bg-white/30 dark:bg-white/5 border border-white/40 dark:border-white/10 rounded-full text-xs font-medium text-gray-800 dark:text-gray-200 backdrop-blur-sm shadow-sm">
+                                                            {skill}
+                                                        </span>
+                                                    )}
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </div>
+                </section>
+            );
+        };
+
+
+        // Experience Section - Added custom divider
+        const Experience = () => {
+            const experiences = [
+                {
+                    title: 'Manager IT',
+                    company: 'Associated Consultancy Centre (Pvt.) Ltd.',
+                    period: 'Dec 2024 – Present',
+                    location: 'Islamabad, Pakistan',
+                    points: [
+                        'Managed IT operations, system reliability, and data security',
+                        'Supervised IT staff and improved operational workflows',
+                        'Network administration and troubleshooting'
+                    ]
+                },
+                {
+                    title: 'Mobile Application Developer',
+                    company: 'Solution of Technologies',
+                    period: 'Oct 2023 – Dec 2024',
+                    location: 'Islamabad, Pakistan',
+                    points: [
+                        'Developed and maintained Android applications',
+                        'Implemented new features and optimized performance',
+                        'Collaborated in testing and code reviews'
+                    ]
+                },
+                {
+                    title: 'Android Developer Intern',
+                    company: 'Innovagic Technologies',
+                    period: 'Aug 2023 – Oct 2023',
+                    location: 'Islamabad, Pakistan',
+                    points: [
+                        'Practical Android development experience',
+                        'Worked on real-world projects using Java'
+                    ]
+                },
+                {
+                    title: 'Computer Science Teacher',
+                    company: 'Azeem Public School',
+                    period: 'Apr 2022 – Jul 2023',
+                    location: 'Kahuta, Pakistan',
+                    points: [
+                        'Taught core Computer Science concepts',
+                        'Guided students through practical projects'
+                    ]
+                }
+            ];
+
+            return (
+                <section id="experience" className="py-16 relative">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white"
+                        >
+                            Work <span className="gradient-text">Experience</span>
+                        </motion.h2>
+
+                        {/* NEW: Custom Section Divider */}
+                        <div className="section-divider"></div>
+
+                        <div className="relative">
+                            {experiences.map((exp, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    className="relative pl-10 pb-10 last:pb-0"
+                                >
+                                    <div className="absolute left-0 top-0 w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                                        <div className="w-3 h-3 bg-white rounded-full"></div>
+                                    </div>
+
+                                    {idx < experiences.length - 1 && (
+                                        <div className="timeline-line"></div>
+                                    )}
+
+                                    <div className="glass rounded-lg p-4 ml-3">
+                                        <h3 className="text-lg font-display font-bold text-gray-900 dark:text-white mb-1">
+                                            {exp.title}
+                                        </h3>
+                                        <div className="text-primary font-body font-semibold text-sm mb-0.5">
+                                            {exp.company}
+                                        </div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400 font-body mb-3">
+                                            {exp.period} • {exp.location}
+                                        </div>
+                                        <ul className="space-y-1.5">
+                                            {exp.points.map((point, pIdx) => (
+                                                <li key={pIdx} className="flex items-start text-sm text-gray-600 dark:text-gray-300 font-body">
+                                                    <span className="text-primary mr-2 text-xs">▹</span>
+                                                    <span>{point}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Projects Section - Added custom divider
+        const Projects = () => {
+            const projects = [
+                {
+                    title: 'Chatting & Conferencing App',
+                    description: 'Final year project featuring real-time chat, media sharing, audio/video calls, profile management, and conferencing capabilities.',
+                    tech: ['Android', 'Firebase', 'WebRTC', 'Kotlin'],
+                    tag: 'Final Year',
+                    updated: '2 months ago',
+                    link: 'https://github.com/HammadNawaz35/Chatting-and-Conferencing-App'
+                },
+                {
+                    title: 'GPS Map Camera',
+                    description: 'GPS-stamped camera app with location data, dual camera support, and customizable templates.',
+                    tech: ['Kotlin', 'GPS API', 'Camera API'],
+                    tag: 'Mobile App',
+                    updated: '1 day ago',
+                    link: 'https://github.com/HammadNawaz35/Women-Safety-App'
+                },
+                {
+                    title: 'Plant Disease Detection',
+                    description: 'AI-powered app using TensorFlow Lite for real-time plant disease detection with confidence scores.',
+                    tech: ['Kotlin', 'TensorFlow Lite', 'ML'],
+                    tag: 'Mobile App',
+                    updated: '2 weeks ago'
+                },
+                {
+                    title: 'Weather App',
+                    description: 'Weather app with real-time data, forecasts, UV index, air quality, and wind speed information.',
+                    tech: ['Kotlin', 'REST API', 'JSON'],
+                    tag: 'Mobile App ', updated: '1 month ago'
+                },
+                {
+                    title: 'My Gallery',
+                    description: 'Gallery app with image browsing, organized folders, sharing, wallpaper setting, and video playback.',
+                    tech: ['Kotlin', 'ViewPager', 'Media Store'],
+                    tag: 'Mobile App',
+                    updated: '4 months ago'
+                }
+            ];
+
+            const awards = [
+                {
+                    title: 'First Position - Android Development',
+                    org: 'K-Tech Competition (KICSIT)',
+                    date: 'Oct 2022',
+                    logo: '🏆', // Gold Trophy Icon
+                    link: 'https://drive.google.com/file/d/11tUJeZu9OZZ8Xn2qWLGoNpCy_s_OI8oQ/view?usp=drive_link'
+                },
+                {
+                    title: 'First Position - Software Project Management',
+                    org: 'K-Tech Competition (KICSIT)',
+                    date: 'Oct 2022',
+                    logo: '🚀', // Project Management Icon
+                    link: 'https://drive.google.com/file/d/11xWZl_0-KFyihffca49NavTrAxOLF-Nf/view?usp=drive_link'
+                }
+            ];
+
+            const certs = [
+                {
+                    name: 'Android Development',
+                    platform: 'Udemy',
+                    date: 'Dec 2023',
+                    logo: 'https://www.vectorlogo.zone/logos/udemy/udemy-icon.svg',
+                    link: 'https://drive.google.com/file/d/1-pjLjsCBPUyGVaPw0GR2IMtO_346TxhvC/view?usp=drive_link'
+                },
+                {
+                    name: 'Data Analytics & BI',
+                    platform: 'DigiSkills',
+                    date: 'June 2024',
+                    logo: 'https://www.digiskills.pk/images/logo.png',
+                    link: 'https://drive.google.com/file/d/1-pjLjsCBPUyGVaPw0GR2IMtO_r6TxhvC/view?usp=drive_link'
+                },
+                {
+                    name: 'Web Design & Dev',
+                    platform: 'Educba',
+                    date: 'Feb 2023',
+                    logo: 'https://cdn.educba.com/academy/wp-content/uploads/2025/04/educba_logo.png',
+                    link: 'https://drive.google.com/file/d/1TR1a0WEdEfTwta2qxNC85RCpx-Qpvjt4/view?usp=drive_link'
+                },
+                {
+                    name: 'Freelancing',
+                    platform: 'DigiSkills',
+                    date: 'Aug 2023',
+                    logo: 'https://www.digiskills.pk/images/logo.png',
+                    link: 'https://drive.google.com/file/d/15e45ANbJ7UReuP3sA41jueW1nFJN9Rdh/view?usp=drive_link'
+                },
+                {
+                    name: 'Communication & Soft Skills',
+                    platform: 'DigiSkills',
+                    date: 'Mar 2024',
+                    logo: 'https://www.digiskills.pk/images/logo.png',
+                    link: 'https://drive.google.com/file/d/1AS8Po2Qjvd6mIS9H2qxxvXqOZ70XTABe/view?usp=drive_link'
+                },
+            ];
+
+
+            //projects
+            return (
+                <section id="projects" className="py-16 relative">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white"
+                        >
+                            My <span className="gradient-text">Projects</span>
+                        </motion.h2>
+
+                        {/* NEW: Custom Section Divider */}
+                        <div className="section-divider"></div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {projects.map((project, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    className="project-card glass rounded-2xl p-4 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full relative group shadow-sm"
+                                >
+                                    {/* Header: Label & GitHub Icon */}
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="flex flex-wrap gap-2">
+                                            {/* Type Label (Web/App) */}
+
+                                            <span className="px-2 py-0.5  dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest">↻
+                                                {project.updated}
+                                            </span>
+                                            {/* Status Tag */}
+                                            <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-widest rounded border border-emerald-500/20">
+                                                {project.tag}
+                                            </span>
+                                        </div>
+
+                                        {/* GitHub Link Icon */}
+
+                                        <a
+                                            href={project.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="relative z-50 w-8 h-8 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-110 transition-transform shadow-lg cursor-pointer"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                                                <path d="M9 18c-4.51 2-5-2-7-2" />
+                                            </svg>
+                                        </a>
+
+                                    </div>
+
+                                    {/* Project Info */}
+                                    <h3 className="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">
+                                        {project.title}
+                                    </h3>
+
+                                    <p className="text-gray-600 dark:text-gray-400 font-body text-sm  leading-relaxed flex-grow">
+                                        {project.description}
+                                    </p>
+
+                                    {/* Footer: Tech Stack */}
+                                    <div className="flex flex-wrap gap-1.5 pt-4 border-t border-gray-200/50 dark:border-white/5">
+                                        {project.tech.map((tech, techIdx) => (
+                                            <span
+                                                key={techIdx}
+                                                className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-[10px] font-medium rounded"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="mt-12 glass rounded-3xl p-8 border border-white/10 relative overflow-hidden shadow-2xl" >
+
+                            <motion.h2
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white"
+                            >
+                                Achievements & <span className="gradient-text">
+                                    Certifications</span>
+                            </motion.h2>
+
+                            <div className="section-divider"></div>
+
+
+                            {/* Background Glow Effect */}
+                            <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+
+                            <div className="grid lg:grid-cols-2 gap-12">
+
+
+                                {/* --- MAJOR AWARDS COLUMN --- */}
+                                <div className="space-y-6">
+                                    <h4 className="flex items-center gap-2 font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-wider text-sm opacity-70">
+                                        <span className="w-8 h-[1px] bg-amber-500"></span> Major Awards
+                                    </h4>
+
+                                    {awards.map((award, idx) => (
+                                        <div key={idx} className="group relative flex gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/10">
+                                            {/* Logo/Icon Container */}
+                                            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                                                {award.logo}
+                                            </div>
+
+                                            <div className="flex-grow">
+                                                <div className="flex justify-between items-start">
+                                                    <span className="text-[10px] font-bold text-amber-500 uppercase tracking-tighter">{award.date}</span>
+                                                    {award.link && (
+                                                        <a href={award.link} className="text-gray-400 hover:text-white transition-colors">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                                                        </a>
+                                                    )}
+                                                </div>
+                                                <h5 className="font-bold text-gray-900 dark:text-white leading-tight group-hover:text-amber-500 transition-colors">{award.title}</h5>
+                                                <p className="text-xs text-gray-500 mt-1">{award.org}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* --- CERTIFICATIONS COLUMN --- */}
+                                <div className="space-y-4">
+                                    <h4 className="flex items-center gap-2 font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-wider text-sm opacity-70">
+                                        <span className="w-8 h-[1px] bg-amber-500"></span>Certificates
+                                    </h4>
+                                    {certs.map((cert, idx) => (
+                                        <div key={idx} className="group flex items-center gap-4 p-3 bg-white/5 rounded-2xl border border-white/5 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all">
+                                            <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-2 shadow-inner group-hover:rotate-6 transition-transform">
+                                                <img src={cert.logo} alt={cert.platform} className="w-full h-full object-contain" />
+                                            </div>
+                                            <div className="flex-grow">
+                                                <h5 className="text-sm font-bold text-gray-900 dark:text-white group-hover:text-blue-400 transition-colors">{cert.name}</h5>
+                                                <div className="flex items-center gap-2 mt-0.5">
+                                                    <span className="text-[10px] text-gray-500 font-bold">{cert.platform}</span>
+                                                    <span className="w-1 h-1 rounded-full bg-gray-600"></span>
+                                                    <span className="text-[10px] font-mono text-blue-500/80 font-bold">{cert.date}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* The Verify Link Button */}
+                                            <a
+                                                href={cert.link}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-500 hover:bg-blue-500 hover:text-white transition-all text-[10px] font-bold border border-blue-500/20"
+                                            >
+                                                VERIFY
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+
+
+                    </div>
+                </section>
+            );
+        };
+
+        // Contact Section - Added custom divider
+        const Contact = () => {
+            const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+            const [isSubmitted, setIsSubmitted] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                console.log('Form submitted:', formData);
+                setIsSubmitted(true);
+                setTimeout(() => setIsSubmitted(false), 3000);
+                setFormData({ name: '', email: '', message: '' });
+            };
+
+            const contactInfo = [
+                { icon: '📧', label: 'Email', value: 'hammadnawaz35@gmail.com', link: 'mailto:hammadnawaz35@gmail.com' },
+                { icon: '📱', label: 'Phone', value: '+92 304 1565309', link: 'tel:+923041565309' },
+                { icon: '🌐', label: 'Website', value: 'hammadnawaz35.github.io', link: 'https://hammadnawaz35.github.io/portfolio' },
+                { icon: '📍', label: 'Location', value: 'Kahuta, Pakistan', link: null }
+            ];
+
+            return (
+                <section id="contact" className="py-16 relative">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white"
+                        >
+                            Get In <span className="gradient-text">Touch</span>
+                        </motion.h2>
+
+                        {/* NEW: Custom Section Divider */}
+                        <div className="section-divider"></div>
+
+                        <div className="grid md:grid-cols-2 gap-10">
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="space-y-5"
+                            >
+                                <p className="text-base text-gray-600 dark:text-gray-300 font-body leading-relaxed mb-6">
+                                    I'm always open to new opportunities, collaborations, and interesting projects.
+                                    Feel free to reach out!
+                                </p>
+
+                                <div className="space-y-3">
+                                    {contactInfo.map((info, idx) => (
+                                        <motion.div
+                                            key={idx}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ delay: idx * 0.1 }}
+                                            className="flex items-center space-x-3 glass rounded-lg p-3"
+                                        >
+                                            <span className="text-2xl">{info.icon}</span>
+                                            <div>
+                                                <div className="text-xs text-gray-500 dark:text-gray-400 font-body">{info.label}</div>
+                                                {info.link ? (
+                                                    <a href={info.link} className="text-sm text-gray-900 dark:text-white font-body hover:text-primary transition-colors">
+                                                        {info.value}
+                                                    </a>
+                                                ) : (
+                                                    <div className="text-sm text-gray-900 dark:text-white font-body">{info.value}</div>
+                                                )}
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+
+                                <div className="pt-6">
+                                    <h3 className="text-base font-display font-semibold mb-3 text-gray-900 dark:text-white">Connect With Me</h3>
+                                    <div className="flex space-x-3">
+                                        <a href="https://github.com/hammadnawaz35"
+                                            className="w-10 h-10 glass rounded-full flex items-center justify-center hover:bg-primary/20 transition-all duration-300 hover:scale-110"
+                                            aria-label="GitHub">
+                                            <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                            </svg>
+                                        </a>
+                                        <a href="mailto:hammadnawaz35@gmail.com"
+                                            className="w-10 h-10 glass rounded-full flex items-center justify-center hover:bg-primary/20 transition-all duration-300 hover:scale-110"
+                                            aria-label="Email">
+                                            <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <form onSubmit={handleSubmit} className="glass rounded-xl p-6 space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-body font-medium mb-1.5 text-gray-700 dark:text-gray-300">Name</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                            className="w-full px-3 py-2 bg-white/5 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg focus:outline-none focus:border-primary transition-colors font-body text-sm text-gray-900 dark:text-white"
+                                            placeholder="Your name"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-body font-medium mb-1.5 text-gray-700 dark:text-gray-300">Email</label>
+                                        <input
+                                            type="email"
+                                            required
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            className="w-full px-3 py-2 bg-white/5 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg focus:outline-none focus:border-primary transition-colors font-body text-sm text-gray-900 dark:text-white"
+                                            placeholder="your.email@example.com"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-body font-medium mb-1.5 text-gray-700 dark:text-gray-300">Message</label>
+                                        <textarea
+                                            required
+                                            rows="4"
+                                            value={formData.message}
+                                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                            className="w-full px-3 py-2 bg-white/5 dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-lg focus:outline-none focus:border-primary transition-colors font-body text-sm resize-none text-gray-900 dark:text-white"
+                                            placeholder="Your message..."
+                                        ></textarea>
+                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        className="btn-primary w-full py-2.5 bg-gradient-to-r from-primary to-secondary rounded-lg font-body font-medium text-white text-sm shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+                                    >
+                                        Send Message
+                                    </button>
+
+                                    <AnimatePresence>
+                                        {isSubmitted && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -10 }}
+                                                className="text-center text-primary font-body font-semibold text-sm"
+                                            >
+                                                ✓ Message sent successfully!
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </form>
+                            </motion.div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // Footer Component - NEW: Enhanced with brand-colored social icons
+        const Footer = () => {
+            const socialLinks = [
+                {
+                    name: 'Facebook',
+                    icon: 'fab fa-facebook-f',
+                    url: 'https://facebook.com/hammadnawaz35',
+                    className: 'social-facebook'
+                },
+                {
+                    name: 'GitHub',
+                    icon: 'fab fa-github',
+                    url: 'https://github.com/hammadnawaz35',
+                    className: 'social-github'
+                },
+                {
+                    name: 'Behance',
+                    icon: 'fab fa-behance',
+                    url: 'https://www.behance.net/hammadnawaz2',
+                    className: 'social-behance'
+                },
+                {
+                    name: 'LinkedIn',
+                    icon: 'fab fa-linkedin-in',
+                    url: 'https://linkedin.com/in/hammadnawaz35',
+                    className: 'social-linkedin'
+                },
+                {
+                    name: 'WhatsApp',
+                    icon: 'fab fa-whatsapp',
+                    url: 'https://wa.me/923041565309',
+                    className: 'social-whatsapp'
+                }
+            ];
+
+            return (
+                <footer className="py-8 glass border-t border-gray-200 dark:border-white/10">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                        {/* Social Icons */}
+                        <div className="flex justify-center space-x-4 mb-6">
+                            {socialLinks.map((social) => (
+                                <a
+                                    key={social.name}
+                                    href={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`social-icon-circle ${social.className}`}
+                                    aria-label={social.name}
+                                >
+                                    <i className={social.icon}></i>
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="text-center">
+                            <p className="text-gray-600 dark:text-gray-400 font-body text-sm">
+                                © 2026  Developed By Muhammad Hammad Nawaz
+                            </p>
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            const { theme, palette, setPalette, toggleTheme } = useTheme();
+
+            return (
+                <>
+                    <div className="animated-bg"></div>
+                    <div className="relative z-10">
+                        <Navigation theme={theme} toggleTheme={toggleTheme} />
+                        <PalettePicker palette={palette} setPalette={setPalette} />
+                        <ScrollButton />
+                        <Hero />
+                        <About />
+                        <Skills />
+                        <Experience />
+                        <Projects />
+                        <Contact />
+                        <Footer />
+                    </div>
+                </>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
