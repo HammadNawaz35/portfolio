@@ -1201,6 +1201,8 @@
             );
         };
 
+
+
         // ── HERO SECTION ──────────────────────────────────────────────────────────
         // Full-screen landing section with animated name, role typing effect,
         // profile photo, and CTA buttons (Download CV & Contact).
@@ -1209,122 +1211,204 @@
         const Hero = () => {
             const photoUrl = "https://hammadnawaz35.github.io/portfolio/img/imag.png";
 
+            // Tech background images from Unsplash (rotate every 5s)
+            const bgImages = [
+                "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80", // circuit board
+                "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1920&q=80", // matrix code
+                "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80", // globe tech
+                "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1920&q=80", // coding screen
+                "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1920&q=80", // laptop code
+            ];
+
+            const [currentBg, setCurrentBg] = React.useState(0);
+            const [fade, setFade] = React.useState(true);
+
+            React.useEffect(() => {
+                const interval = setInterval(() => {
+                    setFade(false);
+                    setTimeout(() => {
+                        setCurrentBg(prev => (prev + 1) % bgImages.length);
+                        setFade(true);
+                    }, 700); // fade out duration
+                }, 5000); // change every 5s
+                return () => clearInterval(interval);
+            }, []);
+
             return (
-                <section id="home" className="relative min-h-screen flex items-center  overflow-hidden pt-28 md:pt-16">
-                    {/* Cool Aesthetic Background from Online */}
-                    <div className="absolute inset-0 -z-10">
-                        {/* Background Image - Modern Abstract */}
-                        <div
-                            className="absolute inset-0 opacity-40 dark:opacity-20"
-                            style={{
-                                backgroundImage: "url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=1920&q=80')",
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                backgroundRepeat: "no-repeat"
-                            }}
-                        ></div>
+                <>
+                    {/* Modern Google Font - Space Grotesk */}
+                    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-                        {/* Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-blue-50/80 to-purple-50/80 dark:from-[#0a0a0a]/95 dark:via-blue-950/90 dark:to-purple-950/90"></div>
+                    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-28 md:pt-16" style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
+                        {/* Cool Aesthetic Background - Rotating Tech Images */}
+                        <div className="absolute inset-0 -z-10">
+                            {/* Background Image - Rotating Tech */}
+                            <div
+                                className="absolute inset-0"
+                                style={{
+                                    backgroundImage: `url('${bgImages[currentBg]}')`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    backgroundRepeat: "no-repeat",
+                                    opacity: fade ? 0.45 : 0,
+                                    transition: "opacity 0.7s ease-in-out",
+                                    filter: "saturate(1.2) brightness(0.9)",
+                                }}
+                            ></div>
 
-                        {/* Animated Blobs */}
-                        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl animate-blob"></div>
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-secondary/20 to-transparent rounded-full blur-3xl animate-blob animation-delay-2000"></div>
-                        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-t from-accent/15 to-transparent rounded-full blur-3xl animate-blob animation-delay-4000"></div>
-                    </div>
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-blue-50/80 to-purple-50/80 dark:from-[#0a0a0a]/95 dark:via-blue-950/90 dark:to-purple-950/90"></div>
 
-                    {/* Blob Animation Styles */}
-                    <style>{`
-                @keyframes blob {
-                    0%, 100% { transform: translate(0, 0) scale(1); }
-                    25% { transform: translate(20px, -50px) scale(1.1); }
-                    50% { transform: translate(-20px, 20px) scale(0.9); }
-                    75% { transform: translate(50px, 50px) scale(1.05); }
-                }
-                .animate-blob {
-                    animation: blob 20s infinite;
-                }
-                .animation-delay-2000 {
-                    animation-delay: 2s;
-                }
-                .animation-delay-4000 {
-                    animation-delay: 4s;
-                }
-            `}</style>
-
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-                        <div className="grid md:grid-cols-2 gap-10 items-center">
-                            {/* Left Side - Text Content */}
-                            <motion.div
-                                initial={{ opacity: 0, x: -50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.8 }}
-                                className="space-y-4"
-                            >
-                                <motion.h1
-                                    className="text-xl md:text-2xl lg:text-3xl font-display font-bold leading-tight text-gray-900 dark:text-white"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 }}
-                                >
-                                    Hi, I'm <span className="gradient-text">Hammad Nawaz</span>
-                                </motion.h1>
-
-                                <div className="h-12 flex items-center">
-                                    <TypingAnimation />
-                                </div>
-
-                                <motion.p
-                                    className="text-base md:text-lg text-gray-600 dark:text-gray-300 font-body leading-relaxed max-w-xl"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.4 }}
-                                >
-                                    A tech-driven professional building modern Android applications and responsive web interfaces
-                                </motion.p>
-
-                                <motion.div
-                                    className="flex flex-wrap gap-3 pt-4"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.6 }}
-                                >
-                                    <a
-                                        href="https://HammadNawaz35.github.io/portfolio/HammadNawaz-Cv.pdf"
-                                        download
-                                        className="btn-cv-download text-white flex items-center gap-2"
-                                    >
-                                        <i className="fas fa-download text-white"></i>
-                                        Download CV
-                                    </a>
-
-
-                                    <a
-                                        href="#projects"
-                                        className="px-6 py-2.5 glass rounded-lg font-body font-medium text-gray-700 dark:text-white text-sm hover:bg-white/10 transition-all duration-300"
-                                    >
-                                        View Projects
-                                    </a>
-                                </motion.div>
-                            </motion.div>
-
-                            {/* Right Side  image hero section */}
-                            <motion.img
-                                src={photoUrl}
-                                alt="Muhammad Hammad Nawaz"
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, delay: 0.3 }}
-                                whileHover={{ scale: 1.02 }}
-                                className="w-full max-w-md mx-auto h-auto object-contain -mt-8 md:mt-0"
-
-                            />
+                            {/* Animated Blobs */}
+                            <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl animate-blob"></div>
+                            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-secondary/20 to-transparent rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+                            <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-gradient-to-t from-accent/15 to-transparent rounded-full blur-3xl animate-blob animation-delay-4000"></div>
                         </div>
-                    </div>
-                </section>
+
+                        {/* Blob Animation Styles + Image indicator dots */}
+                        <style>{`
+                    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+                    @keyframes blob {
+                        0%, 100% { transform: translate(0, 0) scale(1); }
+                        25% { transform: translate(20px, -50px) scale(1.1); }
+                        50% { transform: translate(-20px, 20px) scale(0.9); }
+                        75% { transform: translate(50px, 50px) scale(1.05); }
+                    }
+                    .animate-blob {
+                        animation: blob 20s infinite;
+                    }
+                    .animation-delay-2000 {
+                        animation-delay: 2s;
+                    }
+                    .animation-delay-4000 {
+                        animation-delay: 4s;
+                    }
+                    .hero-text * {
+                        font-family: 'Space Grotesk', 'Inter', sans-serif !important;
+                        letter-spacing: -0.01em;
+                    }
+                    .hero-heading {
+                        font-family: 'Space Grotesk', sans-serif !important;
+                        font-weight: 700;
+                        letter-spacing: -0.03em;
+                        line-height: 1.1;
+                    }
+                    .hero-body {
+                        font-family: 'Inter', sans-serif !important;
+                        font-weight: 400;
+                        letter-spacing: 0em;
+                        line-height: 1.65;
+                    }
+                    .bg-dot {
+                        display: inline-block;
+                        width: 7px;
+                        height: 7px;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.4);
+                        margin: 0 3px;
+                        transition: background 0.3s, transform 0.3s;
+                        cursor: pointer;
+                    }
+                    .bg-dot.active {
+                        background: rgba(255,255,255,0.95);
+                        transform: scale(1.35);
+                    }
+                `}</style>
+
+                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+                            <div className="grid md:grid-cols-2 gap-10 items-center">
+                                {/* Left Side - Text Content */}
+                                <motion.div
+                                    initial={{ opacity: 0, x: -50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8 }}
+                                    className="space-y-4 hero-text"
+                                >
+                                    <motion.h1
+                                        className="hero-heading text-xl md:text-2xl lg:text-3xl text-gray-900 dark:text-white"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                    >
+                                        Hi, I'm <span className="gradient-text">Hammad Nawaz</span>
+                                    </motion.h1>
+
+                                    <div className="h-12 flex items-center">
+                                        <TypingAnimation />
+                                    </div>
+
+                                    <motion.p
+                                        className="hero-body text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.4 }}
+                                    >
+                                        A tech-driven professional building modern Android applications and responsive web interfaces
+                                    </motion.p>
+
+                                    <motion.div
+                                        className="flex flex-wrap gap-3 pt-4"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.6 }}
+                                    >
+                                        <a
+                                            href="https://HammadNawaz35.github.io/portfolio/HammadNawaz-Cv.pdf"
+                                            download
+                                            className="btn-cv-download text-white flex items-center gap-2"
+                                            style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}
+                                        >
+                                            <i className="fas fa-download text-white"></i>
+                                            Download CV
+                                        </a>
+
+                                        <a
+                                            href="#projects"
+                                            className="px-6 py-2.5 glass rounded-lg font-medium text-gray-700 dark:text-white text-sm hover:bg-white/10 transition-all duration-300"
+                                            style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 500 }}
+                                        >
+                                            View Projects
+                                        </a>
+                                    </motion.div>
+
+                                    {/* Background image indicator dots */}
+                                    <motion.div
+                                        className="flex items-center pt-2"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 1 }}
+                                    >
+                                        {bgImages.map((_, i) => (
+                                            <span
+                                                key={i}
+                                                className={`bg-dot ${i === currentBg ? "active" : ""}`}
+                                                onClick={() => setCurrentBg(i)}
+                                                title={`Background ${i + 1}`}
+                                            />
+                                        ))}
+                                    </motion.div>
+                                </motion.div>
+
+                                {/* Right Side  image hero section */}
+                                <motion.img
+                                    src={photoUrl}
+                                    alt="Muhammad Hammad Nawaz"
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.8, delay: 0.3 }}
+                                    whileHover={{ scale: 1.02 }}
+                                    className="w-full max-w-md mx-auto h-auto object-contain -mt-8 md:mt-0"
+                                />
+                            </div>
+                        </div>
+                    </section>
+                </>
             );
         };
 
+
+      
 
         // ── ABOUT SECTION ─────────────────────────────────────────────────────────
         // Two-column layout: bio text on left, SVG illustration on right.
