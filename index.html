@@ -1203,7 +1203,7 @@
 
 
 
-     const Hero = () => {
+const Hero = () => {
     const photoUrl = "https://hammadnawaz35.github.io/portfolio/img/imag.png";
 
     const bgImages = [
@@ -1223,46 +1223,47 @@
             setTimeout(() => {
                 setCurrentBg(prev => (prev + 1) % bgImages.length);
                 setFade(true);
-            }, 500);
+            }, 700); // fade out duration
         }, 5000);
-
         return () => clearInterval(interval);
     }, []);
 
     return (
         <section
             id="home"
-            className="relative min-h-screen flex items-center overflow-hidden pt-28 md:pt-16"
+            className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-28 md:pt-16"
         >
-            {/* Clear Rotating Background */}
+            {/* Background Images */}
             <div className="absolute inset-0 -z-10">
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        backgroundImage: `url(${bgImages[currentBg]})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        opacity: fade ? 1 : 0,
-                        transition: "opacity 0.5s ease-in-out",
-                    }}
-                />
+                {bgImages.map((img, index) => (
+                    <div
+                        key={index}
+                        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                        style={{
+                            backgroundImage: `url(${img})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            opacity: index === currentBg ? 1 : 0,
+                        }}
+                    />
+                ))}
             </div>
 
+            {/* Content */}
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
                 <div className="grid md:grid-cols-2 gap-10 items-center">
 
-                    {/* Left Content */}
-                    <div className="space-y-4">
-                        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white">
-                            Hi, I'm <span className="text-blue-400">Hammad Nawaz</span>
+                    {/* Left Side */}
+                    <div className="space-y-4 hero-text">
+                        <h1 className="hero-heading text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
+                            Hi, I'm <span className="gradient-text text-blue-400">Hammad Nawaz</span>
                         </h1>
 
                         <div className="h-12 flex items-center">
                             <TypingAnimation />
                         </div>
 
-                        <p className="text-base md:text-lg text-gray-200 max-w-xl">
+                        <p className="hero-body text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl">
                             A tech-driven professional building modern Android applications and responsive web interfaces
                         </p>
 
@@ -1270,46 +1271,49 @@
                             <a
                                 href="https://HammadNawaz35.github.io/portfolio/HammadNawaz-Cv.pdf"
                                 download
-                                className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition"
+                                className="btn-cv-download text-white flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition"
                             >
-                                Download CV
+                                <i className="fas fa-download text-white"></i> Download CV
                             </a>
 
                             <a
                                 href="#projects"
-                                className="px-6 py-2.5 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition"
+                                className="px-6 py-2.5 glass rounded-lg font-medium text-gray-700 dark:text-white text-sm hover:bg-white/10 transition-all duration-300"
                             >
                                 View Projects
                             </a>
                         </div>
-
-                        {/* Dots */}
-                        <div className="flex items-center pt-4">
-                            {bgImages.map((_, i) => (
-                                <span
-                                    key={i}
-                                    onClick={() => setCurrentBg(i)}
-                                    className={`w-2 h-2 rounded-full mx-1 cursor-pointer transition ${
-                                        i === currentBg
-                                            ? "bg-white scale-125"
-                                            : "bg-white/50"
-                                    }`}
-                                />
-                            ))}
-                        </div>
                     </div>
 
-                    {/* Right Image */}
-                    <img
+                    {/* Right Side */}
+                    <motion.img
                         src={photoUrl}
                         alt="Hammad Nawaz"
-                        className="w-full max-w-md mx-auto h-auto object-contain"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        whileHover={{ scale: 1.02 }}
+                        className="w-full max-w-md mx-auto h-auto object-contain -mt-8 md:mt-0"
                     />
                 </div>
+            </div>
+
+            {/* Pagination Dots - Bottom Center */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+                {bgImages.map((_, i) => (
+                    <span
+                        key={i}
+                        onClick={() => setCurrentBg(i)}
+                        className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
+                            i === currentBg ? "bg-white scale-125" : "bg-white/50"
+                        }`}
+                    />
+                ))}
             </div>
         </section>
     );
 };
+        
 
         // ── ABOUT SECTION ─────────────────────────────────────────────────────────
         // Two-column layout: bio text on left, SVG illustration on right.
