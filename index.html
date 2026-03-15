@@ -42,8 +42,8 @@
         [data-palette="red"]    { --color-primary:#EF4444; --color-secondary:#F97316; --color-accent:#FBBF24; }
         [data-palette="teal"]   { --color-primary:#14B8A6; --color-secondary:#0EA5E9; --color-accent:#F59E0B; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        html { scroll-behavior:smooth; }
-        body { font-family:'Work Sans',sans-serif; transition:background-color .3s,color .3s; }
+        html { scroll-behavior:smooth; overflow-x:hidden; }
+        body { font-family:'Work Sans',sans-serif; transition:background-color .3s,color .3s; overflow-x:hidden; max-width:100vw; }
         body.dark  { background:linear-gradient(135deg,var(--bg-dark) 0%,var(--bg-dark-secondary) 100%); color:#E5E7EB; }
         body.light { background:linear-gradient(135deg,#FFFFFF 0%,#F3F4F6 100%); color:#1F2937; }
         ::-webkit-scrollbar { width:8px; }
@@ -77,6 +77,26 @@
         .project-card::before { content:''; position:absolute; inset:0; border-radius:.75rem; padding:2px; background:linear-gradient(135deg,var(--color-primary),var(--color-secondary)); -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; opacity:0; transition:opacity .3s; }
         .project-card:hover::before { opacity:1; }
         .project-card:hover { transform:translateY(-5px); }
+
+        /* ── FILTER TABS ── */
+        .filter-tabs { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:32px; }
+        .filter-tab { padding:8px 22px; border-radius:50px; font-size:13px; font-weight:600; font-family:'Work Sans',sans-serif; cursor:pointer; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:rgba(255,255,255,.6); transition:all .25s; }
+        .filter-tab:hover { background:rgba(255,255,255,.09); color:#fff; }
+        .filter-tab.active { background:linear-gradient(135deg,var(--color-primary),var(--color-secondary)); color:#fff; border-color:transparent; box-shadow:0 4px 18px rgba(0,0,0,.25); }
+        .light .filter-tab { background:#f3f4f6; color:#374151; border-color:#e5e7eb; }
+        .light .filter-tab:hover { background:#e5e7eb; }
+        .light .filter-tab.active { background:linear-gradient(135deg,var(--color-primary),var(--color-secondary)); color:#fff; border-color:transparent; }
+
+        /* ── PROJECT CATEGORY BADGE ── */
+        .cat-badge-android { background:rgba(16,185,129,.12); color:#10b981; border:1px solid rgba(16,185,129,.25); }
+        .cat-badge-web { background:rgba(99,102,241,.12); color:#818cf8; border:1px solid rgba(99,102,241,.25); }
+
+        /* ── PAGINATION DOTS ── */
+        .proj-dots { display:flex; gap:8px; justify-content:center; margin-top:28px; align-items:center; }
+        .proj-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.2); border:none; cursor:pointer; padding:0; transition:all .3s; }
+        .proj-dot.active { background:var(--color-primary); width:24px; border-radius:99px; box-shadow:0 0 12px rgba(0,217,255,.5); }
+        .light .proj-dot { background:rgba(0,0,0,.15); }
+        .light .proj-dot.active { background:var(--color-primary); }
 
         /* ── SCROLL BUTTON — moved up to avoid chat overlap ── */
         .scroll-button { position:fixed; bottom:90px; right:28px; width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--color-primary),var(--color-secondary)); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .3s; box-shadow:0 4px 15px rgba(0,0,0,.2); z-index:50; opacity:0; visibility:hidden; }
@@ -254,7 +274,7 @@
             line-height: 1.4;
         }
         .pinned-question-btn:hover {
-            background: rgba(var(--color-primary-rgb, 0,217,255), .12);
+            background: rgba(0,217,255,.12);
             border-color: var(--color-primary);
             color: #fff;
             transform: translateX(3px);
@@ -332,9 +352,8 @@
     position:fixed;inset:0;z-index:99999;
     background:linear-gradient(135deg,#0A0E1A 0%,#050812 100%);
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    transition:opacity .5s ease, visibility .5s ease;
+    transition:opacity .6s ease, visibility .6s ease;
 ">
-    <!-- Logo / Name -->
     <div style="margin-bottom:32px;text-align:center;">
         <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;
             background:linear-gradient(135deg,#00D9FF,#6366F1,#F59E0B);
@@ -342,26 +361,20 @@
             margin-bottom:6px;">HN</div>
         <div style="font-family:'Work Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.15em;text-transform:uppercase;">Loading Portfolio</div>
     </div>
-
-    <!-- Progress bar track -->
     <div style="width:220px;height:3px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;position:relative;">
         <div id="loading-bar" style="
             height:100%;width:0%;
             background:linear-gradient(90deg,#00D9FF,#6366F1,#F59E0B);
             border-radius:99px;
-            transition:width .3s ease;
+            transition:width .25s ease;
             box-shadow:0 0 12px rgba(0,217,255,.6);
         "></div>
     </div>
-
-    <!-- Percentage -->
     <div id="loading-pct" style="margin-top:12px;font-family:'Work Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.35);">0%</div>
-
-    <!-- Animated dots -->
     <div style="display:flex;gap:8px;margin-top:28px;">
-        <div class="ld" style="width:7px;height:7px;border-radius:50%;background:#00D9FF;animation:ldp .8s ease-in-out infinite;"></div>
-        <div class="ld" style="width:7px;height:7px;border-radius:50%;background:#6366F1;animation:ldp .8s ease-in-out .15s infinite;"></div>
-        <div class="ld" style="width:7px;height:7px;border-radius:50%;background:#F59E0B;animation:ldp .8s ease-in-out .3s infinite;"></div>
+        <div style="width:7px;height:7px;border-radius:50%;background:#00D9FF;animation:ldp .8s ease-in-out infinite;"></div>
+        <div style="width:7px;height:7px;border-radius:50%;background:#6366F1;animation:ldp .8s ease-in-out .15s infinite;"></div>
+        <div style="width:7px;height:7px;border-radius:50%;background:#F59E0B;animation:ldp .8s ease-in-out .3s infinite;"></div>
     </div>
 </div>
 <style>
@@ -369,39 +382,42 @@
 </style>
 <script>
 (function(){
-    var bar=document.getElementById('loading-bar');
-    var pct=document.getElementById('loading-pct');
-    var screen=document.getElementById('loading-screen');
-    var progress=0;
-    var steps=[
-        {target:20,delay:80},
-        {target:45,delay:120},
-        {target:65,delay:180},
-        {target:80,delay:250},
-        {target:90,delay:300},
-    ];
-    var si=0;
-    function advance(){
-        if(si<steps.length){
-            var s=steps[si++];
-            setTimeout(function(){
-                progress=s.target;
-                bar.style.width=progress+'%';
-                pct.textContent=progress+'%';
-                advance();
-            },s.delay);
+    var bar = document.getElementById('loading-bar');
+    var pct = document.getElementById('loading-pct');
+    var screen = document.getElementById('loading-screen');
+
+    function setProgress(p) {
+        bar.style.width = p + '%';
+        pct.textContent = p + '%';
+    }
+
+    // Fast animated progress steps
+    var steps = [20, 45, 65, 80, 92];
+    var si = 0;
+    var delays = [60, 100, 150, 200, 250];
+
+    function runStep() {
+        if (si < steps.length) {
+            setTimeout(function() {
+                setProgress(steps[si]);
+                si++;
+                runStep();
+            }, delays[si] || 200);
         }
     }
-    advance();
-    window.addEventListener('load',function(){
-        progress=100;
-        bar.style.width='100%';
-        pct.textContent='100%';
-        setTimeout(function(){
-            screen.style.opacity='0';
-            screen.style.visibility='hidden';
-            setTimeout(function(){screen.remove();},500);
-        },350);
+    runStep();
+
+    // On page load — snap to 100%, show it, then fade out
+    window.addEventListener('load', function() {
+        // Small delay so user sees the bar complete to 100%
+        setTimeout(function() {
+            setProgress(100);
+            setTimeout(function() {
+                screen.style.opacity = '0';
+                screen.style.visibility = 'hidden';
+                setTimeout(function() { screen.remove(); }, 600);
+            }, 450);
+        }, 150);
     });
 })();
 </script>
@@ -507,7 +523,7 @@
     };
 
     /* ──────────────────────────────────────────
-       PALETTE PICKER — now on LEFT side
+       PALETTE PICKER — LEFT side with extra top margin
     ────────────────────────────────────────── */
     const PalettePicker = ({ palette, setPalette }) => {
         const [isOpen, setIsOpen] = useState(false);
@@ -519,7 +535,7 @@
             {name:'teal',   colors:['#14B8A6','#0EA5E9'], icon:'Teal'},
         ];
         return (
-            <div className="fixed left-4 top-24 z-40">
+            <div style={{position:'fixed', left:'16px', top:'96px', zIndex:40}}>
                 <motion.button onClick={()=>setIsOpen(!isOpen)} className="w-12 h-12 rounded-full glass flex items-center justify-center shadow-lg" whileHover={{scale:1.1}} whileTap={{scale:.9}}>🎨</motion.button>
                 <AnimatePresence>
                     {isOpen && (
@@ -742,17 +758,117 @@
         );
     };
 
-    /* ──────────────────────────────────────────
-       PROJECTS
-    ────────────────────────────────────────── */
+    /* ══════════════════════════════════════════
+       PROJECTS  — filter + 2-row pagination + auto-scroll
+    ══════════════════════════════════════════ */
     const Projects = () => {
+        const [filter, setFilter] = useState('all');
+        const [page, setPage] = useState(0);
+        const autoRef = useRef(null);
+        const PROJECTS_PER_PAGE = 6; // 2 rows × 3 cols
+
         const projects = [
-            {title:'Chatting & Conferencing App',description:'Final year project featuring real-time chat, media sharing, audio/video calls, profile management, and conferencing capabilities.',tech:['Android','Firebase','WebRTC','Kotlin'],tag:'Final Year',updated:'2 months ago',link:'https://github.com/HammadNawaz35/Chatting-and-Conferencing-App'},
-            {title:'Visha Music Player',description:'A sleek music player with gorgeous themes, smart playlists, and everything built in.',tech:['Kotlin','Jetpack Compose','ExoPlayer'],tag:'Mobile App',updated:'1 day ago',link:'https://github.com/HammadNawaz35/Visha-Music'},
-            {title:'Plant Disease Detection',description:'AI-powered app using TensorFlow Lite for real-time plant disease detection with confidence scores.',tech:['Kotlin','TensorFlow Lite','ML'],tag:'Mobile App',updated:'2 weeks ago'},
-            {title:'Weather App',description:'Weather app with real-time data, forecasts, UV index, air quality, and wind speed information.',tech:['Kotlin','REST API','JSON'],tag:'Mobile App',updated:'1 month ago'},
-            {title:'My Gallery',description:'Gallery app with image browsing, organized folders, sharing, wallpaper setting, and video playback.',tech:['Kotlin','ViewPager','Media Store'],tag:'Mobile App',updated:'4 months ago'},
+            /* ── Android ── */
+            {
+                title:'Chatting & Conferencing App',
+                category:'android',
+                description:'Final year project featuring real-time chat, media sharing, audio/video calls, profile management, and conferencing capabilities.',
+                tech:['Android','Firebase','WebRTC','Kotlin'],
+                tag:'Final Year', updated:'2 months ago',
+                link:'https://github.com/HammadNawaz35/Chatting-and-Conferencing-App'
+            },
+            {
+                title:'Visha Music Player',
+                category:'android',
+                description:'A sleek music player with gorgeous themes, smart playlists, and everything built in.',
+                tech:['Kotlin','Jetpack Compose','ExoPlayer'],
+                tag:'Mobile App', updated:'1 day ago',
+                link:'https://github.com/HammadNawaz35/Visha-Music'
+            },
+            {
+                title:'Gallery App',
+                category:'android',
+                description:'Full-featured gallery with Jetpack Compose UI, Room DB for metadata, Hilt dependency injection, smooth animations, albums, sharing, wallpaper setting, and video playback.',
+                tech:['Kotlin','Jetpack Compose','Room DB','Hilt DI'],
+                tag:'Mobile App', updated:'1 week ago',
+                link:'https://github.com/HammadNawaz35/GalleryApp'
+            },
+            {
+                title:'Plant Disease Detection',
+                category:'android',
+                description:'AI-powered app using TensorFlow Lite for real-time plant disease detection with confidence scores.',
+                tech:['Kotlin','TensorFlow Lite','ML'],
+                tag:'Mobile App', updated:'2 weeks ago',
+                link:'https://github.com/HammadNawaz35/PlantDiseaseDetection'
+            },
+            {
+                title:'Weather App',
+                category:'android',
+                description:'Weather app with real-time data, forecasts, UV index, air quality, and wind speed information.',
+                tech:['Kotlin','REST API','JSON'],
+                tag:'Mobile App', updated:'1 month ago',
+                link:'https://github.com/HammadNawaz35/WeatherApp'
+            },
+            {
+                title:'My Gallery',
+                category:'android',
+                description:'Gallery app with image browsing, organized folders, sharing, wallpaper setting, and video playback.',
+                tech:['Kotlin','ViewPager','Media Store'],
+                tag:'Mobile App', updated:'4 months ago',
+                link:'https://github.com/HammadNawaz35/Gallery'
+            },
+            /* ── Web ── */
+            {
+                title:'Nexus E-Commerce',
+                category:'web',
+                description:'Full-stack e-commerce platform with product catalog, cart, orders, and Supabase/PostgreSQL backend. Features TanStack Query, shadcn/ui, and Framer Motion.',
+                tech:['React 18','TypeScript','Vite','Tailwind','Supabase'],
+                tag:'Web App', updated:'3 weeks ago',
+                link:'https://github.com/HammadNawaz35/Nexus'
+            },
+            {
+                title:'Safarnama – Travel Pakistan',
+                category:'web',
+                description:'Pakistan travel guide with interactive Leaflet maps, destination carousel, testimonials, scroll progress, and smooth Framer Motion animations throughout.',
+                tech:['React 18','TypeScript','Leaflet','Framer Motion'],
+                tag:'Web App', updated:'1 month ago',
+                link:'https://github.com/HammadNawaz35/Safar-Nama'
+            },
         ];
+
+        const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+        const totalPages = Math.ceil(filtered.length / PROJECTS_PER_PAGE);
+        const pageProjects = filtered.slice(page * PROJECTS_PER_PAGE, (page + 1) * PROJECTS_PER_PAGE);
+
+        // Reset page on filter change
+        useEffect(() => { setPage(0); }, [filter]);
+
+        // Auto-scroll pages
+        const startAuto = useCallback((total) => {
+            clearInterval(autoRef.current);
+            if (total > 1) {
+                autoRef.current = setInterval(() => {
+                    setPage(p => (p + 1) % total);
+                }, 10000);
+            }
+        }, []);
+
+        useEffect(() => {
+            startAuto(totalPages);
+            return () => clearInterval(autoRef.current);
+        }, [totalPages, filter]);
+
+        const goToPage = (p) => {
+            setPage(p);
+            startAuto(totalPages);
+        };
+
+        const filterOptions = [
+            { key: 'all',     label: '🌐 All Projects',  count: projects.length },
+            { key: 'android', label: '🤖 Android',        count: projects.filter(p=>p.category==='android').length },
+            { key: 'web',     label: '💻 Web',            count: projects.filter(p=>p.category==='web').length },
+        ];
+
         const awards = [
             {title:'First Position - Android Development',org:'K-Tech Competition (KICSIT)',date:'Oct 2022',logo:'🏆',link:'https://drive.google.com/file/d/11tUJeZu9OZZ8Xn2qWLGoNpCy_s_OI8oQ/view?usp=drive_link'},
             {title:'First Position - Software Project Management',org:'K-Tech Competition (KICSIT)',date:'Oct 2022',logo:'🚀',link:'https://drive.google.com/file/d/11xWZl_0-KFyihffca49NavTrAxOLF-Nf/view?usp=drive_link'},
@@ -764,31 +880,103 @@
             {name:'Freelancing',platform:'DigiSkills',date:'Aug 2023',logo:'https://www.digiskills.pk/images/logo.png',link:'https://drive.google.com/file/d/15e45ANbJ7UReuP3sA41jueW1nFJN9Rdh/view?usp=drive_link'},
             {name:'Communication & Soft Skills',platform:'DigiSkills',date:'Mar 2024',logo:'https://www.digiskills.pk/images/logo.png',link:'https://drive.google.com/file/d/1AS8Po2Qjvd6mIS9H2qxxvXqOZ70XTABe/view?usp=drive_link'},
         ];
+
         return (
             <section id="projects" className="py-16 relative">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.h2 initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white">My <span className="gradient-text">Projects</span></motion.h2>
                     <div className="section-divider"></div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {projects.map((project,idx)=>(
-                            <motion.div key={idx} initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:idx*.1}} className="project-card glass rounded-2xl p-4 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full relative group shadow-sm">
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className="px-2 py-0.5 dark:text-blue-400 text-[10px] font-bold uppercase tracking-widest">↻ {project.updated}</span>
-                                        <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-widest rounded border border-emerald-500/20">{project.tag}</span>
-                                    </div>
-                                    <a href={project.link} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} className="relative z-50 w-8 h-8 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-110 transition-transform shadow-lg cursor-pointer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                                    </a>
-                                </div>
-                                <h3 className="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
-                                <p className="text-gray-600 dark:text-gray-400 font-body text-sm leading-relaxed flex-grow">{project.description}</p>
-                                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-gray-200/50 dark:border-white/5">
-                                    {project.tech.map((t,ti)=><span key={ti} className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-[10px] font-medium rounded">{t}</span>)}
-                                </div>
-                            </motion.div>
+
+                    {/* ── Filter Tabs ── */}
+                    <motion.div initial={{opacity:0,y:16}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="filter-tabs">
+                        {filterOptions.map(opt => (
+                            <button
+                                key={opt.key}
+                                onClick={() => setFilter(opt.key)}
+                                className={`filter-tab ${filter === opt.key ? 'active' : ''}`}
+                            >
+                                {opt.label}
+                                <span style={{
+                                    marginLeft: 8,
+                                    fontSize: 10,
+                                    opacity: .75,
+                                    background: filter === opt.key ? 'rgba(255,255,255,.25)' : 'rgba(255,255,255,.1)',
+                                    borderRadius: 99,
+                                    padding: '1px 7px',
+                                    fontWeight: 700,
+                                }}>{opt.count}</span>
+                            </button>
                         ))}
+                    </motion.div>
+
+                    {/* ── Projects Grid (2 rows) ── */}
+                    <div style={{minHeight: 420}}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={filter + '-' + page}
+                                initial={{opacity:0, y:24}}
+                                animate={{opacity:1, y:0}}
+                                exit={{opacity:0, y:-16}}
+                                transition={{duration:.35}}
+                                className="grid md:grid-cols-2 lg:grid-cols-3 gap-5"
+                            >
+                                {pageProjects.map((project, idx) => (
+                                    <motion.div
+                                        key={project.title}
+                                        initial={{opacity:0, y:30}}
+                                        animate={{opacity:1, y:0}}
+                                        transition={{delay: idx * 0.07}}
+                                        className="project-card glass rounded-2xl p-4 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full relative group shadow-sm"
+                                    >
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="flex flex-wrap gap-2 items-center">
+                                                <span className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded-full ${project.category === 'android' ? 'cat-badge-android' : 'cat-badge-web'}`}>
+                                                    {project.category === 'android' ? '🤖 Android' : '💻 Web'}
+                                                </span>
+                                                <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[9px] font-bold uppercase tracking-widest rounded border border-emerald-500/20">{project.tag}</span>
+                                            </div>
+                                            {project.link ? (
+                                                <a href={project.link} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} className="relative z-50 w-8 h-8 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-110 transition-transform shadow-lg cursor-pointer">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                                                </a>
+                                            ) : (
+                                                <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200/20 text-gray-400 text-xs" title="Private">🔒</div>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className="text-[10px] dark:text-blue-400 text-blue-500 font-semibold">↻ {project.updated}</span>
+                                        </div>
+                                        <h3 className="text-lg font-display font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
+                                        <p className="text-gray-600 dark:text-gray-400 font-body text-sm leading-relaxed flex-grow">{project.description}</p>
+                                        <div className="flex flex-wrap gap-1.5 pt-4 border-t border-gray-200/50 dark:border-white/5 mt-3">
+                                            {project.tech.map((t,ti)=><span key={ti} className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-[10px] font-medium rounded">{t}</span>)}
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
+
+                    {/* ── Pagination Dots ── */}
+                    {totalPages > 1 && (
+                        <div className="proj-dots">
+                            {Array.from({length: totalPages}).map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => goToPage(i)}
+                                    className={`proj-dot ${i === page ? 'active' : ''}`}
+                                    aria-label={`Page ${i + 1}`}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    {totalPages > 1 && (
+                        <p className="text-center text-xs text-gray-500 dark:text-gray-500 mt-2 font-body">
+                            {page + 1} / {totalPages} 
+                        </p>
+                    )}
+
+                    {/* ── Achievements & Certifications ── */}
                     <motion.div initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="mt-12 glass rounded-3xl p-8 border border-white/10 relative overflow-hidden shadow-2xl">
                         <motion.h2 initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white">Achievements & <span className="gradient-text">Certifications</span></motion.h2>
                         <div className="section-divider"></div>
@@ -962,7 +1150,7 @@
        BLOGS
     ────────────────────────────────────────── */
     const BLOGS = [
-        {id:1,tag:"Artificial Intelligence",tagColor:"#fbbf24",tagBg:"rgba(251,191,36,.12)",emoji:"🤖",bgImage:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80",gradient:"linear-gradient(135deg,rgba(120,53,15,.85),rgba(180,83,9,.6))",glowColor:"rgba(251,191,36,0.35)",accentColor:"#fbbf24",date:"Feb 12, 2026",readTime:"8 min read",title:"AI is Eating Android Development — And That's Great News for You",sub:"How to leverage LLMs, on-device AI, and Gemini Nano to build apps that were impossible two years ago.",body:`<h2>The Quiet Revolution Nobody Warned You About</h2><p>Two years ago, adding intelligent text summarization to an Android app required backend servers, API calls, rate limits, latency, and a monthly bill. Today, Google ships <strong>Gemini Nano directly on Pixel devices</strong> — running entirely offline.</p><p>The implications are enormous. We're not just adding features anymore. We're building apps that <em>think.</em></p>`},
+        {id:1,tag:"Artificial Intelligence",tagColor:"#fbbf24",tagBg:"rgba(251,191,36,.12)",emoji:"🤖",bgImage:"https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80",gradient:"linear-gradient(135deg,rgba(120,53,15,.85),rgba(180,83,9,.6))",glowColor:"rgba(251,191,36,0.35)",accentColor:"#fbbf24",date:"Feb 12, 2026",readTime:"8 min read",title:"AI is Eating Android Development — And That's Great News for You",sub:"How to leverage LLMs, on-device AI, and Gemini Nano to build apps that were impossible two years ago.",body:`<h2>The Quiet Revolution Nobody Warned You About</h2><p>Two years ago, adding intelligent text summarization to an Android app required backend servers, API calls, rate limits, latency, and a monthly bill. Today, Google ships <strong>Gemini Nano directly on Pixel devices</strong> — running entirely offline.</p>`},
         {id:2,tag:"Android Dev",tagColor:"#34d399",tagBg:"rgba(34,211,153,.12)",emoji:"⚡",bgImage:"https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=800&q=80",gradient:"linear-gradient(135deg,rgba(6,78,59,.85),rgba(5,46,36,.65))",glowColor:"rgba(52,211,153,0.3)",accentColor:"#34d399",date:"Feb 5, 2026",readTime:"10 min read",title:"Jetpack Compose in 2026: Every Android Dev Must Make the Switch Now",sub:"The XML era is officially over. Your battle-tested roadmap to mastering Compose — from state to animations.",body:`<h2>The XML Era Is Officially Over</h2><p>Google announced it in 2021. The industry moved in 2022. By 2024, all new Google first-party apps were Compose-only. By 2026, XML layout positions are rare.</p>`},
         {id:3,tag:"IT Management",tagColor:"#a78bfa",tagBg:"rgba(167,139,250,.12)",emoji:"🛡️",bgImage:"https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80",gradient:"linear-gradient(135deg,rgba(46,16,101,.88),rgba(88,28,135,.65))",glowColor:"rgba(167,139,250,0.3)",accentColor:"#a78bfa",date:"Jan 28, 2026",readTime:"9 min read",title:"IT Management Mastery: Building High-Performance Teams in the AI Era",sub:"Leadership frameworks, productivity systems, and the mindset shifts that separate good IT managers from great ones.",body:`<h2>The New Role of the IT Manager</h2><p>The IT manager of 2026 is no longer just a technical overseer — you're a <strong>strategic business partner</strong>.</p>`},
         {id:4,tag:"Career Growth",tagColor:"#22d3ee",tagBg:"rgba(34,211,238,.12)",emoji:"🚀",bgImage:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",gradient:"linear-gradient(135deg,rgba(8,51,68,.88),rgba(14,116,144,.6))",glowColor:"rgba(34,211,238,0.3)",accentColor:"#22d3ee",date:"Jan 20, 2026",readTime:"7 min read",title:"From Developer to Architect: The Invisible Career Ladder Nobody Maps Out",sub:"The skills, visibility tactics, and strategic moves that accelerate the path from senior dev to tech lead to architect.",body:`<h2>Why Most Senior Devs Plateau</h2><p>You've mastered your tech stack. You ship reliable code. You mentor juniors. And you're completely stuck.</p>`},
@@ -1103,11 +1291,8 @@
     };
 
     /* ══════════════════════════════════════════════════════
-       AI CHATBOT COMPONENT — Groq (FREE) + Llama 3
+       AI CHATBOT COMPONENT
     ══════════════════════════════════════════════════════ */
-
-    // 🔒 API key is hidden on Netlify server — no key needed here!
-
     const SYSTEM_PROMPT = `You are HAI — Hammad's witty, professional AI portfolio assistant. You represent Muhammad Hammad Nawaz's personal portfolio website.
 
 PERSONALITY:
@@ -1121,52 +1306,38 @@ PERSONALITY:
 
 ABOUT HAMMAD:
 Full Name: Muhammad Hammad Nawaz
-Age :25 years
-Hobbies : playing games,Space research,Book reading
+Age: 25 years
+Hobbies: playing games, Space research, Book reading
 Roles: Android Developer & IT Manager
 Location: Kahuta, Rawalpindi — so yes, he survives the Islamabad traffic daily 😄
 Email: hammadnawaz35@gmail.com | Phone: +92 304 1565309
 Website: hammadnawaz35.github.io/portfolio | GitHub: github.com/HammadNawaz35
 Education: BSCS Graduate
-future goals: To empower youth and to be an  enterpreneur
+Future goals: To empower youth and to be an entrepreneur
 
 EXPERIENCE (3+ years):
 1. Manager IT — Associated Consultancy Centre (Pvt.) Ltd. | Dec 2024–Present | Islamabad
-   Oversees IT operations, system reliability, data security, network admin, leads IT staff
 2. Mobile Application Developer — Solution of Technologies | Oct 2023–Dec 2024 | Islamabad
-   Built & shipped Android apps, MVVM, performance tuning, code reviews
 3. Android Developer Intern — Innovagic Technologies | Aug–Oct 2023 | Islamabad
-   Hands-on real-world Java Android projects
 4. CS Teacher — Azeem Public School | Apr 2022–Jul 2023 | Kahuta
-   Taught fundamentals, mentored students on practical projects
 
 SKILLS:
-- Languages: Kotlin (his favourite — clean, concise, no nulls!), Java, C++, JavaScript, HTML, CSS, Bootstrap
-- Android: SDK, XML layouts, MVVM, Firebase, REST APIs, Coroutines, Room DB, Camera API, Maps, Push Notifications, Payment Gateway, Ads, Material Design, Jetpack Compose
+- Languages: Kotlin, Java, C++, JavaScript, HTML, CSS, Bootstrap
+- Android: SDK, XML, MVVM, Firebase, REST APIs, Coroutines, Room DB, Camera API, Maps, Push Notifications, Payment Gateway, Ads, Material Design, Jetpack Compose
 - Tools: Git & GitHub, Postman, Appium, JIRA, Figma, MS Office
 
 PROJECTS:
-1. Chatting & Conferencing App — Final Year project, real-time chat, media sharing, audio/video calls, Firebase + WebRTC + Kotlin | github.com/HammadNawaz35/Chatting-and-Conferencing-App
-2. Visha Music Player — Beautiful music player with smart playlists, Kotlin + Jetpack Compose + ExoPlayer | github.com/HammadNawaz35/Visha-Music
-3. Plant Disease Detection — TensorFlow Lite AI app for real-time plant disease detection with confidence scores
-4. Weather App — Real-time forecasts, UV, air quality, wind speed via REST API
-5. My Gallery — Full-featured gallery with albums, sharing, wallpaper, video playback
+Android: Chatting & Conferencing App, Visha Music Player, Gallery App (Compose+Room+Hilt), Plant Disease Detection, Weather App, My Gallery
+Web: Nexus E-Commerce (React+TypeScript+Supabase), Safarnama Travel (React+TypeScript+Leaflet)
 
-AWARDS 🏆:
-- 1st Place Android Development — K-Tech Competition (KICSIT), Oct 2022
-- 1st Place Software Project Management — K-Tech Competition (KICSIT), Oct 2022
-(Winning twice at the same event? Overachiever alert 😄)
-
-CERTIFICATIONS:
-Android Dev (Udemy, Dec 2023) | Data Analytics & BI (DigiSkills, Jun 2024) | Web Design & Dev (Educba, Feb 2023) | Freelancing (DigiSkills, Aug 2023) | Communication & Soft Skills (DigiSkills, Mar 2024)
-
-CONTACT: hammadnawaz35@gmail.com | WhatsApp: +92 304 1565309 | LinkedIn: linkedin.com/in/hammadnawaz35 | GitHub: github.com/HammadNawaz35
+AWARDS: 2x First Place at K-Tech Competition (KICSIT), Oct 2022
+CERTS: Android Dev (Udemy), Data Analytics (DigiSkills), Web Design (Educba), Freelancing (DigiSkills), Communication (DigiSkills)
 
 RULES:
 - Never give robotic bullet-dump answers. Reason through answers naturally.
-- For greetings like "hi", "hello", "hey", "sup" — respond warmly with personality, a light joke, and invite a question.
+- For greetings, respond warmly with personality and a light joke.
 - For off-topic questions politely say you're only here to represent Hammad's portfolio.
-- Always end responses with a subtle invitation like "Anything else you'd like to know?" or similar.`;
+- Always end with a subtle invitation like "Anything else you'd like to know?"`;
 
     const ALL_QUESTIONS = [
         "🚀 What are Hammad's best projects?",
@@ -1181,11 +1352,9 @@ RULES:
         "🌐 Does he do web development too?",
     ];
 
-    // Pick 3 random suggestions (different each time)
     const pickSuggestions = (exclude = []) => {
         const pool = ALL_QUESTIONS.filter(q => !exclude.includes(q));
-        const shuffled = pool.sort(() => Math.random() - 0.5);
-        return shuffled.slice(0, 3);
+        return pool.sort(() => Math.random() - 0.5).slice(0, 3);
     };
 
     const AIChatbot = () => {
@@ -1214,32 +1383,23 @@ RULES:
         const sendMessage = async (text) => {
             const userText = (text || input).trim();
             if (!userText || isLoading) return;
-
             setInput('');
-            // Capture current messages BEFORE state update (avoids stale closure bug)
             const currentMessages = messages;
             setMessages(prev => [...prev, { role: 'user', text: userText }]);
             setIsLoading(true);
-
             try {
-                // Build history from captured snapshot
                 const history = [{ role: 'system', content: SYSTEM_PROMPT }];
-                currentMessages
-                    .filter((m, i) => i > 0)
-                    .forEach(m => history.push({
-                        role: m.role === 'bot' ? 'assistant' : 'user',
-                        content: m.text
-                    }));
+                currentMessages.filter((m, i) => i > 0).forEach(m => history.push({
+                    role: m.role === 'bot' ? 'assistant' : 'user',
+                    content: m.text
+                }));
                 history.push({ role: 'user', content: userText });
-
-                // 🔒 Calls Cloudflare Worker — API key stays secret on server
                 const PROXY_URL = 'https://hammad-chat.hammadnawaz35.workers.dev';
                 const response = await fetch(PROXY_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ messages: history }),
                 });
-
                 const data = await response.json();
                 if (!response.ok) {
                     const errMsg = data?.error?.message || 'Server error — please try again.';
@@ -1250,8 +1410,7 @@ RULES:
                     setSuggestions(pickSuggestions([userText]));
                 }
             } catch (err) {
-                console.error('Chat error:', err);
-                setMessages(prev => [...prev, { role: 'bot', text: `❌ Network error: ${err.message}. Check your connection and try again.` }]);
+                setMessages(prev => [...prev, { role: 'bot', text: `❌ Network error: ${err.message}` }]);
             } finally {
                 setIsLoading(false);
             }
@@ -1261,7 +1420,6 @@ RULES:
             if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
         };
 
-        // Show suggestions after last bot message (not while loading)
         const lastMsg = messages[messages.length - 1];
         const showSuggestions = !isLoading && lastMsg?.role === 'bot';
 
@@ -1269,97 +1427,54 @@ RULES:
             <>
                 <AnimatePresence>
                     {isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20, scale: 0.92 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 20, scale: 0.92 }}
-                            transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                            className="chat-panel"
-                        >
-                            {/* Header */}
+                        <motion.div initial={{opacity:0,y:20,scale:.92}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:20,scale:.92}} transition={{type:'spring',stiffness:350,damping:28}} className="chat-panel">
                             <div className="chat-header">
                                 <div className="chat-avatar">🤖</div>
                                 <div className="chat-header-info">
-                                    <div className="chat-header-name">Hammad's AI Assitant</div>
-                                    <div className="chat-header-status">
-                                        <span className="status-dot"></span>
-                                        Online 
-                                    </div>
+                                    <div className="chat-header-name">Hammad's AI Assistant</div>
+                                    <div className="chat-header-status"><span className="status-dot"></span>Online</div>
                                 </div>
-                                <button onClick={() => setIsOpen(false)} style={{ background: 'rgba(255,255,255,.15)', border: 'none', color: '#fff', width: 28, height: 28, borderRadius: '50%', cursor: 'pointer', fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>✕</button>
+                                <button onClick={()=>setIsOpen(false)} style={{background:'rgba(255,255,255,.15)',border:'none',color:'#fff',width:28,height:28,borderRadius:'50%',cursor:'pointer',fontSize:14,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>✕</button>
                             </div>
-
-                            {/* Messages */}
                             <div className="chat-messages">
-                                {messages.map((msg, i) => (
-                                    <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }} className={`chat-bubble ${msg.role}`}>
+                                {messages.map((msg,i)=>(
+                                    <motion.div key={i} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} transition={{duration:.25}} className={`chat-bubble ${msg.role}`}>
                                         {msg.text}
                                     </motion.div>
                                 ))}
-                                {isLoading && (
-                                    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="chat-bubble bot loading">
+                                {isLoading&&(
+                                    <motion.div initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} className="chat-bubble bot loading">
                                         <div className="typing-dots"><span/><span/><span/></div>
                                     </motion.div>
                                 )}
                                 <div ref={messagesEndRef}/>
                             </div>
-
-                            {/* Rotating suggestions — show after every bot reply */}
-                            {showSuggestions && (
+                            {showSuggestions&&(
                                 <div className="pinned-questions">
                                     <div className="pinned-label">✦ You might also ask</div>
-                                    {suggestions.map((q, i) => (
-                                        <motion.button
-                                            key={q}
-                                            initial={{ opacity: 0, x: -8 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: i * 0.06 }}
-                                            className="pinned-question-btn"
-                                            onClick={() => sendMessage(q)}
-                                        >
-                                            {q}
-                                        </motion.button>
+                                    {suggestions.map((q,i)=>(
+                                        <motion.button key={q} initial={{opacity:0,x:-8}} animate={{opacity:1,x:0}} transition={{delay:i*.06}} className="pinned-question-btn" onClick={()=>sendMessage(q)}>{q}</motion.button>
                                     ))}
                                 </div>
                             )}
-
-                            {/* Input */}
                             <div className="chat-input-area">
-                                <textarea
-                                    ref={inputRef}
-                                    className="chat-input"
-                                    value={input}
-                                    onChange={e => setInput(e.target.value)}
-                                    onKeyDown={handleKeyDown}
-                                    placeholder="Ask me anything about Hammad..."
-                                    rows={1}
-                                    disabled={isLoading}
-                                />
-                                <button className="chat-send-btn" onClick={() => sendMessage()} disabled={!input.trim() || isLoading} aria-label="Send">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                                    </svg>
+                                <textarea ref={inputRef} className="chat-input" value={input} onChange={e=>setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="Ask me anything about Hammad..." rows={1} disabled={isLoading}/>
+                                <button className="chat-send-btn" onClick={()=>sendMessage()} disabled={!input.trim()||isLoading} aria-label="Send">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                                 </button>
                             </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
-
-                {/* Toggle button */}
-                <motion.button
-                    className={`chat-toggle-btn ${isOpen ? 'open' : ''}`}
-                    onClick={() => setIsOpen(!isOpen)}
-                    whileTap={{ scale: 0.92 }}
-                    aria-label="Toggle AI Chat"
-                >
+                <motion.button className={`chat-toggle-btn ${isOpen?'open':''}`} onClick={()=>setIsOpen(!isOpen)} whileTap={{scale:.92}} aria-label="Toggle AI Chat">
                     <AnimatePresence mode="wait">
-                        {isOpen ? (
-                            <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }} style={{ fontSize: 22 }}>✕</motion.span>
-                        ) : (
-                            <motion.span key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }} style={{ fontSize: 24 }}>💬</motion.span>
+                        {isOpen?(
+                            <motion.span key="close" initial={{rotate:-90,opacity:0}} animate={{rotate:0,opacity:1}} exit={{rotate:90,opacity:0}} transition={{duration:.2}} style={{fontSize:22}}>✕</motion.span>
+                        ):(
+                            <motion.span key="open" initial={{rotate:90,opacity:0}} animate={{rotate:0,opacity:1}} exit={{rotate:-90,opacity:0}} transition={{duration:.2}} style={{fontSize:24}}>💬</motion.span>
                         )}
                     </AnimatePresence>
-                    {showNotif && !isOpen && <div className="chat-notification-dot"/>}
+                    {showNotif&&!isOpen&&<div className="chat-notification-dot"/>}
                 </motion.button>
             </>
         );
