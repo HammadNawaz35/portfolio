@@ -1134,7 +1134,7 @@ function BlogsSection({theme}){
                         <motion.h2 initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-3xl md:text-4xl font-display font-bold text-center mb-4 text-gray-900 dark:text-white">Thoughts on <span className="gradient-text">Tech &amp; the Future</span></motion.h2>
                         <div className="section-divider mb-12"/>
                   
-                    // </motion.div>
+                     </motion.div>
                     <AnimatePresence mode="wait" initial={false}>
                         <motion.div key={page} initial={{opacity:0,x:dir*50}} animate={{opacity:1,x:0}} exit={{opacity:0,x:dir*-50}} transition={{duration:.45}} style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:"20px"}}>
                             {pageBlogs.map((blog,i)=><BlogCard key={blog.id} blog={blog} index={i} onOpen={setOpenBlog} theme={theme}/>)}
