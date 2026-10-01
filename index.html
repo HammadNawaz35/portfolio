@@ -537,10 +537,10 @@ const Skills=()=>{
 /* ── EXPERIENCE ── */
 const Experience=()=>{
     const experiences=[
-        {title:'Manager IT',company:'Associated Consultancy Centre (Pvt.) Ltd.',period:'Dec 2024 – Present',location:'Islamabad, Pakistan',points:['Managed IT operations, system reliability, and data security','Supervised IT staff and improved operational workflows','Network administration and troubleshooting']},
-        {title:'Mobile Application Developer',company:'Solution of Technologies',period:'Oct 2023 – Dec 2024',location:'Islamabad, Pakistan',points:['Developed and maintained Android applications','Implemented new features and optimized performance','Collaborated in testing and code reviews']},
-        {title:'Android Developer Intern',company:'Innovagic Technologies',period:'Aug 2023 – Oct 2023',location:'Islamabad, Pakistan',points:['Practical Android development experience','Worked on real-world projects using Java']},
-        {title:'Computer Science Teacher',company:'Azeem Public School',period:'Apr 2022 – Jul 2023',location:'Kahuta, Pakistan',points:['Taught core Computer Science concepts','Guided students through practical projects']},
+        {title:'Manager IT',company:'Associated Consultancy Centre (Pvt.) Ltd.',period:'17 Dec 2024 – Present',location:'Islamabad, Pakistan',points:['Managed IT operations, system reliability, and data security','Supervised IT staff and improved operational workflows','Network administration and troubleshooting']},
+        {title:'Mobile Application Developer',company:'Solution of Technologies',period:'5 Nov 2023 – 1 Dec 2024',location:'Islamabad, Pakistan',points:['Developed and maintained Android applications','Implemented new features and optimized performance','Collaborated in testing and code reviews']},
+        {title:'Android Developer Intern',company:'Innovagic Technologies',period:'1 Aug 2023 – 30 Oct 2023',location:'Islamabad, Pakistan',points:['Practical Android development experience','Worked on real-world projects using Java']},
+        {title:'Computer Science Teacher',company:'Azeem Public School',period:'1 Apr 2022 – 23 Jul 2023',location:'Kahuta, Pakistan',points:['Taught core Computer Science concepts','Guided students through practical projects']},
     ];
     return(
         <section id="experience" className="py-16 relative">
@@ -573,7 +573,18 @@ const Projects=()=>{
     const autoRef=useRef(null);
     const PER_PAGE=6;
     const projects=[
+        {title:'AI Career Suite',category:'web',description:'AI career platform with ATS resume scoring, job matching, cover letter generation, auto-apply, email outreach, and an analytics dashboard. Supabase backend with auth, edge functions, and row-level security.',tech:['React','TypeScript','Tailwind','Recharts','Supabase','Zod'],tag:'AI Web App',link:null},
         {title:'Chatting & Conferencing App',category:'android',description:'Final year project featuring real-time chat, media sharing, audio/video calls, profile management, and conferencing capabilities.',tech:['Android','Firebase','WebRTC','Kotlin'],tag:'Final Year',updated:'2 months ago',link:'https://github.com/HammadNawaz35/Chatting-and-Conferencing-App'},
+        {
+        title: 'CardioAI — Heart Disease Detection',
+        category: 'ai',
+        description:
+            'AI-based cardiac screening platform that analyzes ECG signals and cardiac MRI images for normal/abnormal classification and risk-level estimation, with waveform visualization, MRI attention heatmaps, patient records, scan history, and PDF reports.',
+        tech: ['Python', 'Flask', 'PyTorch', 'ResNet', 'ECG', 'MRI'],
+        tag: 'web App',
+        link: 'https://github.com/HammadNawaz35/CardioAI'
+    },
+        {title:'GPS Map Camera',category:'android',description:'Camera app that stamps photos with GPS data (longitude, latitude, altitude, GMT time, address), with dual camera, flash, customizable location templates, file renaming, and auto-flash in low light.',tech:['Kotlin','Camera','GPS'],tag:'Mobile App',link:null},
         {title:'Visha Music Player',category:'android',description:'Sleek music player with gorgeous themes, smart playlists, Jetpack Compose UI, and ExoPlayer for smooth audio streaming.',tech:['Kotlin','Jetpack Compose','ExoPlayer'],tag:'Mobile App',updated:'1 day ago',link:'https://github.com/HammadNawaz35/Visha-Music'},
         {title:'Gallery App',category:'android',description:'Full-featured gallery with Jetpack Compose UI, Room DB for metadata, Hilt dependency injection, albums, sharing, wallpaper setting, and video playback.',tech:['Kotlin','Jetpack Compose','Room DB','Hilt DI'],tag:'Mobile App',updated:'1 week ago',link:'https://github.com/HammadNawaz35/Gallery'},
         {title:'Plant Disease Detection',category:'android',description:'AI-powered app using TensorFlow Lite for real-time plant disease detection with confidence scores and on-device inference.',tech:['Kotlin','TensorFlow Lite','ML'],tag:'Mobile App',updated:'2 weeks ago',link:null},
@@ -583,8 +594,8 @@ const Projects=()=>{
         {title:'Safarnama – Travel Pakistan',category:'web',description:'Pakistan travel guide with interactive Leaflet maps, destination carousel, testimonials, scroll progress, and smooth Framer Motion animations.',tech:['React 18','TypeScript','Leaflet','Framer Motion'],tag:'Web App',updated:'1 month ago',link:'https://github.com/HammadNawaz35/Safar-Nama'},
     ];
     const awards=[
-        {title:'First Position - Android Development',org:'K-Tech Competition (KICSIT)',date:'Oct 2022',logo:'🏆',link:'https://drive.google.com/file/d/11tUJeZu9OZZ8Xn2qWLGoNpCy_s_OI8oQ/view?usp=drive_link'},
-        {title:'First Position - Software Project Management',org:'K-Tech Competition (KICSIT)',date:'Oct 2022',logo:'🚀',link:'https://drive.google.com/file/d/11xWZl_0-KFyihffca49NavTrAxOLF-Nf/view?usp=drive_link'},
+        {title:'First Position - Android Development',org:'K-Tech Competition (KICSIT)',date:'Jan 2022',logo:'🏆',link:'https://drive.google.com/file/d/11tUJeZu9OZZ8Xn2qWLGoNpCy_s_OI8oQ/view?usp=drive_link'},
+        {title:'First Position - Software Project Management',org:'K-Tech Competition (KICSIT)',date:'Jan 2022',logo:'🚀',link:'https://drive.google.com/file/d/11xWZl_0-KFyihffca49NavTrAxOLF-Nf/view?usp=drive_link'},
     ];
     const certs=[
         {name:'Android Development',platform:'Udemy',date:'Dec 2023',logo:'https://www.vectorlogo.zone/logos/udemy/udemy-icon.svg',link:'https://drive.google.com/file/d/1-pjLjsCBPUyGVaPw0GR2IMtO_346TxhvC/view?usp=drive_link'},
@@ -626,7 +637,7 @@ const Projects=()=>{
                                         </div>
                                         {project.link?(<a href={project.link} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} className="relative z-50 w-8 h-8 flex items-center justify-center bg-black dark:bg-white text-white dark:text-black rounded-full hover:scale-110 transition-transform shadow-lg cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>):(<div className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200/20 text-gray-400 text-xs" title="Private">🔒</div>)}
                                     </div>
-                                    <div className="flex items-center gap-2 mb-1"><span className="text-[10px] dark:text-blue-400 text-blue-500 font-semibold">↻ {project.updated}</span></div>
+                                    {project.updated&&<div className="flex items-center gap-2 mb-1"><span className="text-[10px] dark:text-blue-400 text-blue-500 font-semibold">↻ {project.updated}</span></div>}
                                     <h3 className="text-lg font-display font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
                                     <p className="text-gray-600 dark:text-gray-400 font-body text-sm leading-relaxed flex-grow">{project.description}</p>
                                     <div className="flex flex-wrap gap-1.5 pt-4 border-t border-gray-200/50 dark:border-white/5 mt-3">{project.tech.map((t,ti)=><span key={ti} className="px-2 py-0.5 bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 text-[10px] font-medium rounded">{t}</span>)}</div>
@@ -1183,9 +1194,9 @@ const Footer=()=>{
 const SYSTEM_PROMPT=`You are HAI — Hammad's witty, professional AI portfolio assistant representing Muhammad Hammad Nawaz's portfolio.
 PERSONALITY: Warm, friendly, naturally conversational. Light clean humour for casual chat. Professional for skill/job questions. Concise (2-4 sentences) unless detail requested.
 ABOUT: BSCS Graduate, Android Developer & IT Manager, Kahuta Pakistan. Age 25. Hobbies: gaming, space research, book reading.
-EXPERIENCE: Manager IT @ ACC Ltd (Dec 2024-Present), Mobile App Dev @ Solution of Technologies (Oct 2023-Dec 2024), Android Intern @ Innovagic (Aug-Oct 2023), CS Teacher (Apr 2022-Jul 2023).
+EXPERIENCE: Manager IT @ ACC Ltd (17 Dec 2024-Present), Mobile App Dev @ Solution of Technologies (5 Nov 2023-1 Dec 2024), Android Intern @ Innovagic (1 Aug-30 Oct 2023), CS Teacher (1 Apr 2022-23 Jul 2023).
 SKILLS: Kotlin, Java, C++, JS, HTML, CSS, Bootstrap; Android SDK, MVVM, Firebase, REST APIs, Coroutines, Room DB, Jetpack Compose, Maps, Push Notifications, Hilt DI; Git, Figma, JIRA, Postman.
-PROJECTS: Android: Chatting App, Visha Music Player, Gallery App (Compose+Room+Hilt), Plant Disease AI, Weather App. Web: Nexus E-Commerce (React+Supabase), Safarnama Travel (React+Leaflet).
+PROJECTS: Android: Chatting App, Visha Music Player, Gallery App (Compose+Room+Hilt), Plant Disease AI, Weather App, GPS Map Camera. Web: AI Career Suite (React+Supabase+AI), Nexus E-Commerce (React+Supabase), Safarnama Travel (React+Leaflet).
 AWARDS: 2x 1st Place K-Tech KICSIT 2022. CERTS: Android Dev(Udemy), Data Analytics(DigiSkills), Web Dev(Educba), Freelancing, Communication.
 CONTACT: hammadnawaz35@gmail.com | +92 304 1565309 | github.com/HammadNawaz35
 RULES: Natural reasoning, no robotic bullet dumps. Greetings get warm personality+invite. Off-topic: politely redirect. Always end with subtle "Anything else?"`;
